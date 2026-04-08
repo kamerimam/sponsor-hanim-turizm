@@ -1,0 +1,20 @@
+# Bağımlılıklar (npm install ile tekrar indirilir)
+node_modules
+
+# Build çıktısı (Vercel kendi build'ini yapar)
+dist
+
+# Ortam değişkenleri (gizli anahtarlar)
+.env
+.env.local
+.env.production
+
+# macOS sistem dosyaları
+.DS_Store
+
+# IDE ayarları
+.vscode
+.idea
+
+# Log dosyaları
+*.log

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /odeme
+
+Sitemap: https://sponsorhanim.com/sitemap.xml
