@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, Loader2 } from "lucide-react";
-import { getTours, type Tour } from "@/lib/supabase";
+import { getTours, type Tour } from "@/lib/api";
 
 const FILTERS = ["Tümü", "Mısır", "Bali", "Hac", "Umre", "Kombine"];
 

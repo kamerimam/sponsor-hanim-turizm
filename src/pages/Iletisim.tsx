@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { sendContactMessage } from "@/lib/supabase";
+import { api } from "@/lib/api";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Ad en az 2 karakter olmalıdır." }),
@@ -79,12 +79,16 @@ export default function Iletisim() {
 
   async function onSubmit(values: FormValues) {
     setIsSending(true);
-    const ok = await sendContactMessage(values);
-    setIsSending(false);
-    if (ok) {
+    try {
+      await api.sendContactMessage(values);
       setIsSuccess(true);
       form.reset();
       window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      console.error('Mesaj gönderilemedi:', err);
+      alert('Mesaj gönderilemedi. Lütfen tekrar deneyin.');
+    } finally {
+      setIsSending(false);
     }
   }
 

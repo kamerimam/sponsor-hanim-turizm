@@ -25,7 +25,8 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CheckCircle2, CreditCard, Building, Wallet, CalendarClock } from "lucide-react";
+import { CheckCircle2, CreditCard, Building, Wallet, CalendarClock, Loader2 } from "lucide-react";
+import { api } from "@/lib/api";
 
 const travelerSchema = z.object({
   firstName: z.string().min(2, { message: "Ad en az 2 karakter olmalıdır." }),
@@ -80,7 +81,9 @@ export default function Odeme() {
 
   const [, setLocation] = useLocation();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [successData, setSuccessData] = useState<{ paymentPlan: string; payableNow: number; remainingAmount: number } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [successData, setSuccessData] = useState<{ paymentPlan: string; payableNow: number; remainingAmount: number; bookingNumber: string } | null>(null);
 
   // Initialize URL search params manually since we don't have a wouter hook for it
   const searchParams = new URLSearchParams(window.location.search);
@@ -128,11 +131,38 @@ export default function Odeme() {
   const payableNow = watchPaymentPlan === "deposit" ? Math.round(totalPrice * 0.5) : totalPrice;
   const remainingAmount = watchPaymentPlan === "deposit" ? totalPrice - payableNow : 0;
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form submitted", values);
-    setSuccessData({ paymentPlan: values.paymentPlan, payableNow, remainingAmount });
-    setIsSuccess(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const tour = TOURS.find((t) => t.id === values.tourId);
+      const specialRequests = `Tur: ${tour?.title || values.tourId}\nOdeme plani: ${values.paymentPlan === 'deposit' ? 'Kapora (%50)' : 'Tam odeme'}\nToplam: ${totalPrice} USD | Simdi: ${payableNow} USD | Kalan: ${remainingAmount} USD`;
+
+      const result = await api.createBooking({
+        tourId: values.tourId,
+        travelerCount: parseInt(values.travelerCount),
+        travelers: values.travelers,
+        paymentPlan: values.paymentPlan,
+        paymentMethod: values.paymentMethod,
+        specialRequests,
+      });
+
+      setSuccessData({
+        paymentPlan: values.paymentPlan,
+        payableNow,
+        remainingAmount,
+        bookingNumber: result.booking.booking_number,
+      });
+      setIsSuccess(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Rezervasyon olusturulamadi.';
+      setSubmitError(msg);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (isSuccess) {
@@ -150,6 +180,12 @@ export default function Odeme() {
           <p className="text-muted-foreground">
             Tebrikler! Kutsal yolculuğunuz için ilk adımı attınız. Ekibimiz en kısa sürede sizinle iletişime geçecektir.
           </p>
+          {successData?.bookingNumber && (
+            <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-muted-foreground">Rezervasyon Numaranız</p>
+              <p className="font-mono font-bold text-lg text-primary">{successData.bookingNumber}</p>
+            </div>
+          )}
           {successData?.paymentPlan === "deposit" && (
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-sm text-left space-y-1">
               <p className="font-medium text-foreground">Ödeme Planınız: Kapora (%50)</p>
@@ -656,8 +692,20 @@ export default function Odeme() {
                     )}
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full font-serif text-lg">
-                    Rezervasyon Yap
+                  {submitError && (
+                    <div className="bg-destructive/10 border border-destructive/20 text-destructive text-sm rounded-md p-3">
+                      {submitError}
+                    </div>
+                  )}
+                  <Button type="submit" size="lg" className="w-full font-serif text-lg" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                        Gönderiliyor...
+                      </>
+                    ) : (
+                      'Rezervasyon Yap'
+                    )}
                   </Button>
                   <p className="text-xs text-center text-muted-foreground mt-4">
                     "Rezervasyon Yap" butonuna tıklayarak iptal ve iade koşullarını kabul etmiş olursunuz.

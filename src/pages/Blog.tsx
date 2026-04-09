@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { Calendar, Tag, ArrowRight, Loader2 } from "lucide-react";
 import { useSeo } from "@/hooks/use-seo";
-import { getBlogs, type BlogPost } from "@/lib/supabase";
+import { getBlogs, type BlogPost } from "@/lib/api";
 
 export default function Blog() {
   useSeo({

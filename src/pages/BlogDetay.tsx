@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, Tag, ArrowLeft, Share2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSeo } from "@/hooks/use-seo";
-import { getBlogBySlug, type BlogPost } from "@/lib/supabase";
+import { getBlogBySlug, type BlogPost } from "@/lib/api";
 
 export default function BlogDetay() {
   const params = useParams();
