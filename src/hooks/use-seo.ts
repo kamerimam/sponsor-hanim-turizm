@@ -15,7 +15,7 @@ interface SeoOptions {
   noIndex?: boolean;
 }
 
-const SITE_URL = "https://sponsorhanim.com";
+const SITE_URL = "https://sponsorhanimtravel.com";
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 
 function upsertMeta(selector: string, attr: "name" | "property", attrValue: string, content: string) {

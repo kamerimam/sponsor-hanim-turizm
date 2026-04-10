@@ -12,7 +12,7 @@ interface TourSchemaParams {
   destinations: string[]; // ornek: ["Mekke", "Medine"]
 }
 
-const SITE_URL = "https://sponsorhanim.com";
+const SITE_URL = "https://sponsorhanimtravel.com";
 
 export function buildTourJsonLd(p: TourSchemaParams): Record<string, unknown>[] {
   const touristTrip: Record<string, unknown> = {

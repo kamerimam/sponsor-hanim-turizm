@@ -67,7 +67,7 @@ export default function Iletisim() {
       "@type": "LocalBusiness",
       "name": "Sponsor Hanım Turizm",
       "description": "Ankara merkezli seyahat acentası. Hac, umre, Mısır ve Bali turları.",
-      "url": "https://sponsorhanim.com",
+      "url": "https://sponsorhanimtravel.com",
       "telephone": "+905444986208",
       "email": "sponsorhanim@gmail.com",
       "address": {

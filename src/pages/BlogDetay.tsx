@@ -30,19 +30,19 @@ export default function BlogDetay() {
           author: {
             "@type": "Organization",
             name: "Sponsor Hanım Turizm",
-            url: "https://sponsorhanim.com",
+            url: "https://sponsorhanimtravel.com",
           },
           publisher: {
             "@type": "Organization",
             name: "Sponsor Hanım Turizm",
             logo: {
               "@type": "ImageObject",
-              url: "https://sponsorhanim.com/og-image.png",
+              url: "https://sponsorhanimtravel.com/og-image.png",
             },
           },
           mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": `https://sponsorhanim.com/blog/${post.slug}`,
+            "@id": `https://sponsorhanimtravel.com/blog/${post.slug}`,
           },
           articleSection: post.category,
         }
