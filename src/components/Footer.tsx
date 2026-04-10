@@ -42,16 +42,6 @@ export function Footer() {
                   İletişim
                 </Link>
               </li>
-              <li>
-                <a 
-                  href={import.meta.env.VITE_ADMIN_URL || "http://localhost:5174"} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm opacity-50 hover:opacity-100"
-                >
-                  Yönetim Paneli
-                </a>
-              </li>
             </ul>
           </div>
 
