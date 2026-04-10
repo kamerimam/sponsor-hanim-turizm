@@ -34,6 +34,9 @@
 
   function track(path) {
     try {
+      // Cerez onayi yoksa izleme yapma
+      if (window.SH_TRACKING_DISABLED) return;
+
       var p = path || (window.location.pathname + window.location.search);
       // Ayni path'i arka arkaya gondermeyelim
       if (p === lastPath) return;

@@ -53,13 +53,37 @@
     }
     </script>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics (Consent Mode v2 — varsayilan denied, kullanici kabul edince granted'a gecer) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W01218WKSX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        wait_for_update: 500,
+      });
+      // Daha onceki sessionda kabul etmisse hemen guncelle
+      try {
+        if (localStorage.getItem('sh_cookie_consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            analytics_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+          });
+        }
+      } catch(e) {}
       gtag('js', new Date());
       gtag('config', 'G-W01218WKSX');
+    </script>
+    <script>
+      // Tracking varsayilan kapali — banner kabul edilince acilir
+      try {
+        window.SH_TRACKING_DISABLED = localStorage.getItem('sh_cookie_consent') !== 'accepted';
+      } catch(e) { window.SH_TRACKING_DISABLED = true; }
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

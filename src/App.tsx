@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CookieBanner } from "@/components/CookieBanner";
 import { Spinner } from "@/components/ui/spinner";
 
 // Lazy-loaded pages — each becomes its own JS chunk
@@ -85,6 +86,7 @@ function App() {
             </main>
             <Footer />
             <WhatsAppButton />
+            <CookieBanner />
           </div>
         </WouterRouter>
         <Toaster />
