@@ -115,8 +115,19 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-secondary-foreground/10 text-center text-secondary-foreground/60 text-sm">
+        <div className="pt-8 border-t border-secondary-foreground/10 text-center text-secondary-foreground/60 text-sm space-y-2">
           <p>&copy; {new Date().getFullYear()} Sponsor Hanım Turizm. Tüm hakları saklıdır.</p>
+          <p>
+            Tasarım, frontend ve backend — Kamer İmam &nbsp;·&nbsp;{" "}
+            <a
+              href="https://wa.me/905533333811"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-primary transition-colors"
+            >
+              Proje için iletişime geçin
+            </a>
+          </p>
         </div>
       </div>
     </footer>
