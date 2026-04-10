@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import egyptImg from "@/assets/images/egypt.png";
 import premiumImg from "@/assets/images/premium.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -180,7 +181,23 @@ const NOT_INCLUDED = [
 ];
 
 export default function MisirUmreKombine() {
-  useSeo({ title: "Mısır + Umre Kombine Turu", description: "21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye tek yolculukta iki medeniyet. Kişi başı 5.800 USD. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Mısır + Umre Kombine Turu",
+    description: "21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye tek yolculukta iki medeniyet. Kişi başı 5.800 USD. Sponsor Hanım Turizm.",
+    path: "/turlar/misir-umre-kombine",
+    image: "https://sponsorhanim.com/og-misir-umre.jpg",
+    keywords: "mısır umre kombine, umre mısır turu, kahire mekke turu, kombine tur paketi",
+    jsonLd: buildTourJsonLd({
+      name: "Mısır + Umre Kombine Turu",
+      description: "21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye — tek yolculukta iki medeniyet deneyimi.",
+      image: "https://sponsorhanim.com/og-misir-umre.jpg",
+      slug: "misir-umre-kombine",
+      price: 5800,
+      currency: "USD",
+      durationDays: 21,
+      destinations: ["Kahire", "Mekke", "Medine"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

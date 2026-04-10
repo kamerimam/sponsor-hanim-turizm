@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function TicaretIletisimOnay() {
+  useSeo({
+    title: "Ticari İletişim / E-Bülten Onayı",
+    description: "Sponsor Hanım Turizm'den ticari elektronik ileti (SMS, e-posta, arama) alma tercihlerinizi yönetin.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Ticari İletişim / E-Bülten Onayı | Sponsor Hanım Turizm";
   }, []);
 
   return (

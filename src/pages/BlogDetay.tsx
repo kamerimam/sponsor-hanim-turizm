@@ -15,6 +15,38 @@ export default function BlogDetay() {
   useSeo({
     title: post ? post.title : "Blog Yazısı",
     description: post ? post.excerpt : "Sponsor Hanım Turizm blog yazısı.",
+    path: post ? `/blog/${post.slug}` : undefined,
+    image: post?.image_url,
+    keywords: post ? `${post.category}, ${post.title}, seyahat blog, sponsor hanım` : undefined,
+    jsonLd: post
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: post.title,
+          description: post.excerpt,
+          image: post.image_url,
+          datePublished: post.date,
+          dateModified: post.date,
+          author: {
+            "@type": "Organization",
+            name: "Sponsor Hanım Turizm",
+            url: "https://sponsorhanim.com",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "Sponsor Hanım Turizm",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://sponsorhanim.com/og-image.png",
+            },
+          },
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `https://sponsorhanim.com/blog/${post.slug}`,
+          },
+          articleSection: post.category,
+        }
+      : undefined,
   });
 
   useEffect(() => {

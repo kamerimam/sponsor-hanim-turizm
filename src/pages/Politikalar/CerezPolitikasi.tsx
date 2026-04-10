@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function CerezPolitikasi() {
+  useSeo({
+    title: "Çerez Politikası",
+    description: "Sponsor Hanım Turizm web sitesinde kullanılan çerezler, amaçları ve çerez tercihlerinizi nasıl yönetebileceğiniz hakkında bilgi.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Çerez Politikası | Sponsor Hanım Turizm";
   }, []);
 
   return (

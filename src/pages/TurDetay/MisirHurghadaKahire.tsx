@@ -19,6 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import egyptImg from "@/assets/images/egypt.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -114,7 +115,23 @@ const PRICES = [
 ];
 
 export default function MisirHurghadaKahire() {
-  useSeo({ title: "Mısır Turu — Hurghada & Kahire", description: "6 günlük Mısır turu: Kahire piramitleri ve Hurghada Kızıldeniz tatili. Kişi başı 800 USD. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Mısır Turu — Hurghada & Kahire",
+    description: "6 günlük Mısır turu: Kahire piramitleri ve Hurghada Kızıldeniz tatili. Kişi başı 800 USD. Sponsor Hanım Turizm.",
+    path: "/turlar/misir-hurghada-kahire",
+    image: "https://sponsorhanim.com/og-misir.jpg",
+    keywords: "mısır turu, hurghada tatili, kahire piramitleri, kızıldeniz, mısır fiyatları",
+    jsonLd: buildTourJsonLd({
+      name: "Mısır Turu — Hurghada & Kahire",
+      description: "6 günlük Mısır turu: Kahire'de piramit ve müze turu, Hurghada'da Kızıldeniz resort tatili.",
+      image: "https://sponsorhanim.com/og-misir.jpg",
+      slug: "misir-hurghada-kahire",
+      price: 800,
+      currency: "USD",
+      durationDays: 6,
+      destinations: ["Kahire", "Hurghada"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

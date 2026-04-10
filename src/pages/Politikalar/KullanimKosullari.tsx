@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function KullanimKosullari() {
+  useSeo({
+    title: "Web Sitesi Kullanım Koşulları",
+    description: "Sponsor Hanım Turizm web sitesinin kullanım koşulları, fikri mülkiyet hakları ve kullanıcı yükümlülükleri.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Web Sitesi Kullanım Koşulları | Sponsor Hanım Turizm";
   }, []);
 
   return (

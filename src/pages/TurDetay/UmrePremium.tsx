@@ -20,6 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import premiumImg from "@/assets/images/premium.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -124,7 +125,23 @@ const NOT_INCLUDED = [
 ];
 
 export default function UmrePremium() {
-  useSeo({ title: "Premium Umre Turu", description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler. Kişi başı 4.500 USD. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Premium Umre Turu",
+    description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler. Kişi başı 4.500 USD. Sponsor Hanım Turizm.",
+    path: "/turlar/umre-premium",
+    image: "https://sponsorhanim.com/og-umre.jpg",
+    keywords: "umre turu, premium umre, vip umre, kabe manzaralı otel, umre fiyatları 2026",
+    jsonLd: buildTourJsonLd({
+      name: "Premium Umre Turu",
+      description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler, uzman din görevlisi rehberliği.",
+      image: "https://sponsorhanim.com/og-umre.jpg",
+      slug: "umre-premium",
+      price: 4500,
+      currency: "USD",
+      durationDays: 14,
+      destinations: ["Mekke", "Medine"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

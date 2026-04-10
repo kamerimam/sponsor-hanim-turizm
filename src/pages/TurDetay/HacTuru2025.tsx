@@ -21,6 +21,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import pilgrimsImg from "@/assets/images/pilgrims.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -166,7 +167,23 @@ const NOT_INCLUDED = [
 ];
 
 export default function HacTuru2025() {
-  useSeo({ title: "Hac Turu 2025", description: "21 günlük Hac Turu 2025 programı. Uzman din görevlileri eşliğinde eksiksiz hac farizası. Kişi başı 7.500 USD. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Hac Turu 2025",
+    description: "21 günlük Hac Turu 2025 programı. Uzman din görevlileri eşliğinde eksiksiz hac farizası. Kişi başı 7.500 USD. Sponsor Hanım Turizm.",
+    path: "/turlar/hac-turu-2025",
+    image: "https://sponsorhanim.com/og-hac.jpg",
+    keywords: "hac turu 2025, hac fiyatları, hac kayıtları, hac kotası, mekke medine hac",
+    jsonLd: buildTourJsonLd({
+      name: "Hac Turu 2025",
+      description: "21 günlük Hac Turu. Din işleri kotalı, uzman görevli rehberliğinde eksiksiz hac farizası programı.",
+      image: "https://sponsorhanim.com/og-hac.jpg",
+      slug: "hac-turu-2025",
+      price: 7500,
+      currency: "USD",
+      durationDays: 21,
+      destinations: ["Mekke", "Medine", "Arafat", "Mina"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

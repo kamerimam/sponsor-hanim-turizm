@@ -20,6 +20,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import baliImg from "@/assets/images/bali.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -118,7 +119,23 @@ const NOT_INCLUDED = [
 ];
 
 export default function BaliGiliAdalari() {
-  useSeo({ title: "Bali & Gili Adaları Turu", description: "7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 EUR. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Bali & Gili Adaları Turu",
+    description: "7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 EUR. Sponsor Hanım Turizm.",
+    path: "/turlar/bali-gili-adalari",
+    image: "https://sponsorhanim.com/og-bali.jpg",
+    keywords: "bali turu, gili adaları, endonezya tatili, bali fiyatları, uzakdoğu turu",
+    jsonLd: buildTourJsonLd({
+      name: "Bali & Gili Adaları Turu",
+      description: "7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar, turkuaz deniz ve tropikal deneyimler.",
+      image: "https://sponsorhanim.com/og-bali.jpg",
+      slug: "bali-gili-adalari",
+      price: 1650,
+      currency: "EUR",
+      durationDays: 7,
+      destinations: ["Ubud", "Seminyak", "Gili Trawangan"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function VizeBilgilendirme() {
+  useSeo({
+    title: "Vize Bilgilendirme ve Sorumluluk Politikası",
+    description: "Yurtdışı turlarda vize başvuru süreçleri, gerekli belgeler ve Sponsor Hanım Turizm'in vize sorumluluk kapsamı.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Vize Bilgilendirme ve Sorumluluk Politikası | Sponsor Hanım Turizm";
   }, []);
 
   return (

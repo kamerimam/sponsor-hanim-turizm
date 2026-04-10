@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function OnBilgilendirmeFormu() {
+  useSeo({
+    title: "Ön Bilgilendirme Formu",
+    description: "Paket tur satışı öncesi tüketiciye sunulması zorunlu ön bilgilendirme formu ve hizmet koşulları.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Ön Bilgilendirme Formu | Sponsor Hanım Turizm";
   }, []);
 
   return (

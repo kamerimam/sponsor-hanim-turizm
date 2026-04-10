@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function KvkkAydinlatmaMetni() {
+  useSeo({
+    title: "KVKK Aydınlatma Metni",
+    description: "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında Sponsor Hanım Turizm'in veri işleme politikası ve haklarınız.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "KVKK Aydınlatma Metni | Sponsor Hanım Turizm";
   }, []);
 
   return (

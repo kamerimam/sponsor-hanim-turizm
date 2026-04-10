@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function PaketTurSozlesmesi() {
+  useSeo({
+    title: "Paket Tur Sözleşmesi / Mesafeli Satış Sözleşmesi",
+    description: "Sponsor Hanım Turizm ile müşteriler arasında geçerli paket tur ve mesafeli satış sözleşmesi metni.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Paket Tur Sözleşmesi / Mesafeli Satış Sözleşmesi | Sponsor Hanım Turizm";
   }, []);
 
   return (

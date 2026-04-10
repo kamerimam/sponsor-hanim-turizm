@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function KvkkAcikRizaBeyan() {
+  useSeo({
+    title: "KVKK Açık Rıza Beyanı",
+    description: "Sponsor Hanım Turizm tarafından kişisel verilerinizin işlenmesine ilişkin açık rıza beyanı metni.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "KVKK Açık Rıza Beyanı | Sponsor Hanım Turizm";
   }, []);
 
   return (

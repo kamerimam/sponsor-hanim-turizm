@@ -19,6 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import sharmImg from "@/assets/images/egypt sharm el sheikh.png";
 import { useSeo } from "@/hooks/use-seo";
+import { buildTourJsonLd } from "@/lib/tour-schema";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -120,7 +121,23 @@ const PRICES = [
 ];
 
 export default function MisirSharmKahire() {
-  useSeo({ title: "Mısır Turu — Sharm El Şeyh & Kahire", description: "6 günlük Mısır turu: Sharm El Şeyh 5 yıldızlı otel ve Kahire piramitleri. Kişi başı 900 USD. Sponsor Hanım Turizm." });
+  useSeo({
+    title: "Mısır Turu — Sharm El Şeyh & Kahire",
+    description: "6 günlük Mısır turu: Sharm El Şeyh 5 yıldızlı otel ve Kahire piramitleri. Kişi başı 900 USD. Sponsor Hanım Turizm.",
+    path: "/turlar/misir-sharm-kahire",
+    image: "https://sponsorhanim.com/og-sharm.jpg",
+    keywords: "sharm el şeyh, mısır turu, kahire piramit, mısır tatili, 5 yıldızlı resort",
+    jsonLd: buildTourJsonLd({
+      name: "Mısır Turu — Sharm El Şeyh & Kahire",
+      description: "6 günlük Mısır turu: Sharm El Şeyh'te 5 yıldızlı resort tatili, Kahire'de piramit ve müze gezisi.",
+      image: "https://sponsorhanim.com/og-sharm.jpg",
+      slug: "misir-sharm-kahire",
+      price: 900,
+      currency: "USD",
+      durationDays: 6,
+      destinations: ["Kahire", "Sharm El Şeyh"],
+    }),
+  });
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}

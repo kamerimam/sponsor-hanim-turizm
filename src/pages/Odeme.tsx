@@ -80,6 +80,7 @@ export default function Odeme() {
   useSeo({
     title: "Rezervasyon & Ödeme",
     description: "Sponsor Hanım Turizm online rezervasyon ve ödeme sayfası. Tur seçiminizi yapın, güvenli ödeme ile yerinizi ayırtın.",
+    noIndex: true,
   });
 
   const [, setLocation] = useLocation();

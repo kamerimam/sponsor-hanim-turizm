@@ -1,9 +1,13 @@
 import { useEffect } from "react";
+import { useSeo } from "@/hooks/use-seo";
 
 export default function IptalIadePolitikasi() {
+  useSeo({
+    title: "İptal, İade ve Değişiklik Politikası",
+    description: "Sponsor Hanım Turizm rezervasyonlarında iptal, iade ve değişiklik koşulları, iade süreçleri ve tüketici hakları.",
+  });
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "İptal, İade ve Değişiklik Politikası | Sponsor Hanım Turizm";
   }, []);
 
   return (
