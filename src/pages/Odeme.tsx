@@ -32,10 +32,13 @@ const travelerSchema = z.object({
   firstName: z.string().min(2, { message: "Ad en az 2 karakter olmalıdır." }),
   lastName: z.string().min(2, { message: "Soyad en az 2 karakter olmalıdır." }),
   tcId: z.string().length(11, { message: "TC Kimlik No 11 haneli olmalıdır." }),
-  birthDate: z.string().min(1, { message: "Doğum tarihi zorunludur." }),
+  birthDate: z.string().regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: "Doğum tarihi GG/AA/YYYY formatında olmalıdır." }),
   phone: z.string().min(10, { message: "Geçerli bir telefon numarası girin." }),
   email: z.string().email({ message: "Geçerli bir e-posta adresi girin." }),
 });
+
+// İlk harfi büyük yap, geri kalanına dokunma
+const capitalizeFirst = (s: string) => (s.length > 0 ? s.charAt(0).toLocaleUpperCase("tr-TR") + s.slice(1) : s);
 
 const formSchema = z.object({
   tourId: z.string().min(1, { message: "Lütfen bir tur seçin." }),
@@ -139,10 +142,16 @@ export default function Odeme() {
       const tour = TOURS.find((t) => t.id === values.tourId);
       const specialRequests = `Tur: ${tour?.title || values.tourId}\nOdeme plani: ${values.paymentPlan === 'deposit' ? 'Kapora (%50)' : 'Tam odeme'}\nToplam: ${totalPrice} USD | Simdi: ${payableNow} USD | Kalan: ${remainingAmount} USD`;
 
+      // GG/AA/YYYY → YYYY-MM-DD (backend için)
+      const travelersIso = values.travelers.map((t) => {
+        const m = t.birthDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+        return m ? { ...t, birthDate: `${m[3]}-${m[2]}-${m[1]}` } : t;
+      });
+
       const result = await api.createBooking({
         tourId: values.tourId,
         travelerCount: parseInt(values.travelerCount),
-        travelers: values.travelers,
+        travelers: travelersIso,
         paymentPlan: values.paymentPlan,
         paymentMethod: values.paymentMethod,
         specialRequests,
@@ -239,7 +248,7 @@ export default function Odeme() {
                           <FormItem>
                             <FormLabel>Adınız</FormLabel>
                             <FormControl>
-                              <Input placeholder="Ahmet" {...field} onChange={(e) => field.onChange(e.target.value.replace(/\b\w/g, (c) => c.toLocaleUpperCase("tr-TR")))} />
+                              <Input placeholder="Ahmet" {...field} onChange={(e) => field.onChange(capitalizeFirst(e.target.value))} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -252,7 +261,7 @@ export default function Odeme() {
                           <FormItem>
                             <FormLabel>Soyadınız</FormLabel>
                             <FormControl>
-                              <Input placeholder="Yılmaz" {...field} onChange={(e) => field.onChange(e.target.value.replace(/\b\w/g, (c) => c.toLocaleUpperCase("tr-TR")))} />
+                              <Input placeholder="Yılmaz" {...field} onChange={(e) => field.onChange(capitalizeFirst(e.target.value))} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -281,7 +290,23 @@ export default function Odeme() {
                           <FormItem>
                             <FormLabel>Doğum Tarihi</FormLabel>
                             <FormControl>
-                              <Input type="date" {...field} />
+                              <Input
+                                type="text"
+                                placeholder="GG/AA/YYYY"
+                                inputMode="numeric"
+                                maxLength={10}
+                                {...field}
+                                onChange={(e) => {
+                                  const digits = e.target.value.replace(/\D/g, "").slice(0, 8);
+                                  let formatted = digits;
+                                  if (digits.length >= 5) {
+                                    formatted = digits.slice(0, 2) + "/" + digits.slice(2, 4) + "/" + digits.slice(4);
+                                  } else if (digits.length >= 3) {
+                                    formatted = digits.slice(0, 2) + "/" + digits.slice(2);
+                                  }
+                                  field.onChange(formatted);
+                                }}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -349,33 +374,29 @@ export default function Odeme() {
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                             className="flex flex-col space-y-2"
                           >
-                            <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
-                              <FormControl>
-                                <RadioGroupItem value="full" />
-                              </FormControl>
-                              <FormLabel className="font-medium flex items-center gap-2 cursor-pointer w-full">
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="full" />
+                              <div className="font-medium flex items-center gap-2 w-full">
                                 <Wallet className="w-4 h-4 text-primary" />
                                 <div>
                                   <span>Tek Seferde Tam Ödeme</span>
                                   <p className="text-xs text-muted-foreground font-normal mt-0.5">Toplam tutarın tamamını şimdi ödeyin.</p>
                                 </div>
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
-                              <FormControl>
-                                <RadioGroupItem value="deposit" />
-                              </FormControl>
-                              <FormLabel className="font-medium flex items-center gap-2 cursor-pointer w-full">
+                              </div>
+                            </label>
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="deposit" />
+                              <div className="font-medium flex items-center gap-2 w-full">
                                 <CalendarClock className="w-4 h-4 text-primary" />
                                 <div>
                                   <span>Kapora Ödemesi (%50)</span>
                                   <p className="text-xs text-muted-foreground font-normal mt-0.5">Şimdi %50 ödeyin, kalan %50'yi tur günü ödeyin.</p>
                                 </div>
-                              </FormLabel>
-                            </FormItem>
+                              </div>
+                            </label>
                           </RadioGroup>
                         </FormControl>
                         <FormMessage />
@@ -413,27 +434,23 @@ export default function Odeme() {
                         <FormControl>
                           <RadioGroup
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                             className="flex flex-col space-y-2"
                           >
-                            <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
-                              <FormControl>
-                                <RadioGroupItem value="credit_card" />
-                              </FormControl>
-                              <FormLabel className="font-medium flex items-center gap-2 cursor-pointer w-full">
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="credit_card" />
+                              <div className="font-medium flex items-center gap-2 w-full">
                                 <CreditCard className="w-4 h-4 text-primary" />
                                 Kredi / Banka Kartı
-                              </FormLabel>
-                            </FormItem>
-                            <FormItem className="flex items-center space-x-3 space-y-0 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
-                              <FormControl>
-                                <RadioGroupItem value="bank_transfer" />
-                              </FormControl>
-                              <FormLabel className="font-medium flex items-center gap-2 cursor-pointer w-full">
+                              </div>
+                            </label>
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="bank_transfer" />
+                              <div className="font-medium flex items-center gap-2 w-full">
                                 <Building className="w-4 h-4 text-primary" />
                                 Banka Havalesi / EFT
-                              </FormLabel>
-                            </FormItem>
+                              </div>
+                            </label>
                           </RadioGroup>
                         </FormControl>
                       </FormItem>
