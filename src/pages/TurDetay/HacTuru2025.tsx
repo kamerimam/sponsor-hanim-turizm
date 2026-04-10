@@ -168,11 +168,11 @@ const NOT_INCLUDED = [
 
 export default function HacTuru2025() {
   useSeo({
-    title: "Hac Turu 2025",
-    description: "21 günlük Hac Turu 2025 programı. Uzman din görevlileri eşliğinde eksiksiz hac farizası. Kişi başı 7.500 USD. Sponsor Hanım Turizm.",
+    title: "Ankara Hac Turu 2026 | 21 Gün Tam Kapsamlı Program",
+    description: "Ankara'dan kalkışlı 21 günlük Hac Turu. Uzman din görevlileri eşliğinde eksiksiz hac farizası, 5★ oteller, VIP çadır. Kişi başı 7.500 USD. Sponsor Hanım Turizm.",
     path: "/turlar/hac-turu-2025",
     image: "https://sponsorhanim.com/og-hac.jpg",
-    keywords: "hac turu 2025, hac fiyatları, hac kayıtları, hac kotası, mekke medine hac",
+    keywords: "ankara hac turu, hac turu 2026, ankara hac fiyatları, hac kayıtları 2026, mekke medine hac, ankara seyahat acentası hac, hac kotası",
     jsonLd: buildTourJsonLd({
       name: "Hac Turu 2025",
       description: "21 günlük Hac Turu. Din işleri kotalı, uzman görevli rehberliğinde eksiksiz hac farizası programı.",

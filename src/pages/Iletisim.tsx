@@ -58,8 +58,42 @@ export default function Iletisim() {
   const [isSending, setIsSending] = useState(false);
 
   useSeo({
-    title: "İletişim",
-    description: "Sponsor Hanım Turizm iletişim bilgileri. Turlarımız hakkında bilgi almak ve rezervasyon yapmak için bize ulaşın. Ankara - 0544 498 62 08",
+    title: "İletişim | Ankara Seyahat Acentası — Sponsor Hanım Turizm",
+    description: "Sponsor Hanım Turizm iletişim bilgileri. Ankara'da umre, hac, Mısır ve Bali turları için bize ulaşın. Tel: 0544 498 62 08 — Büyük Toygar Han, Altındağ/Ankara",
+    path: "/iletisim",
+    keywords: "ankara seyahat acentası iletişim, sponsor hanım turizm adres, ankara umre turu bilgi, ankara tur ofisi",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Sponsor Hanım Turizm",
+      "description": "Ankara merkezli seyahat acentası. Hac, umre, Mısır ve Bali turları.",
+      "url": "https://sponsorhanim.com",
+      "telephone": "+905444986208",
+      "email": "sponsorhanim@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Büyük Toygar Han, Hacı Bayram, Alsancak Sk. D:1/64",
+        "addressLocality": "Altındağ",
+        "addressRegion": "Ankara",
+        "postalCode": "06050",
+        "addressCountry": "TR",
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.9417,
+        "longitude": 32.8553,
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "17:00" },
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+905444986208",
+        "contactType": "customer service",
+        "availableLanguage": "Turkish",
+      },
+    },
   });
 
   useEffect(() => {

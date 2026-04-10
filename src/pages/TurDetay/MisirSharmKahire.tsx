@@ -122,11 +122,11 @@ const PRICES = [
 
 export default function MisirSharmKahire() {
   useSeo({
-    title: "Mısır Turu — Sharm El Şeyh & Kahire",
-    description: "6 günlük Mısır turu: Sharm El Şeyh 5 yıldızlı otel ve Kahire piramitleri. Kişi başı 900 USD. Sponsor Hanım Turizm.",
+    title: "Ankara Mısır Turu — Sharm El Şeyh & Kahire | 6 Gün 900 USD",
+    description: "Ankara'dan kalkışlı 6 günlük Mısır turu: Sharm El Şeyh 5 yıldızlı resort tatili ve Kahire piramitleri. Kişi başı 900 USD. Sponsor Hanım Turizm.",
     path: "/turlar/misir-sharm-kahire",
     image: "https://sponsorhanim.com/og-sharm.jpg",
-    keywords: "sharm el şeyh, mısır turu, kahire piramit, mısır tatili, 5 yıldızlı resort",
+    keywords: "ankara mısır turu, sharm el şeyh ankara, kahire piramit turu, mısır tatili 2026, sharm el şeyh fiyatları, ankara seyahat acentası mısır",
     jsonLd: buildTourJsonLd({
       name: "Mısır Turu — Sharm El Şeyh & Kahire",
       description: "6 günlük Mısır turu: Sharm El Şeyh'te 5 yıldızlı resort tatili, Kahire'de piramit ve müze gezisi.",

@@ -12,8 +12,10 @@ const FILTERS = ["Tümü", "Mısır", "Bali", "Hac", "Umre", "Kombine"];
 
 export default function Turlar() {
   useSeo({
-    title: "Turlarımız",
-    description: "Sponsor Hanım Turizm tur paketleri - Hac, Umre, Mısır, Bali turları. Konforlu ve güvenilir yolculuk seçenekleri.",
+    title: "Tur Paketleri | Ankara Hac, Umre, Mısır, Bali Turları",
+    description: "Ankara'dan kalkışlı tur paketleri — Hac, VIP Umre, Mısır Hurghada, Mısır Sharm El Şeyh, Bali ve kombine turlar. Sponsor Hanım Turizm güvencesiyle.",
+    path: "/turlar",
+    keywords: "ankara tur paketleri, ankara umre turu, ankara hac turu, ankara mısır turu, ankara bali turu, ankara seyahat acentası, umre fiyatları 2026, hac fiyatları 2026",
   });
 
   const [tours, setTours] = useState<Tour[]>([]);

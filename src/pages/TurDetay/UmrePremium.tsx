@@ -126,11 +126,11 @@ const NOT_INCLUDED = [
 
 export default function UmrePremium() {
   useSeo({
-    title: "Premium Umre Turu",
-    description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler. Kişi başı 4.500 USD. Sponsor Hanım Turizm.",
+    title: "Ankara VIP Umre Turu 2026 | 14 Gün 5★ Kabe Manzaralı",
+    description: "Ankara'dan kalkışlı 14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler, uzman din görevlisi. Kişi başı 4.500 USD. Sponsor Hanım Turizm.",
     path: "/turlar/umre-premium",
     image: "https://sponsorhanim.com/og-umre.jpg",
-    keywords: "umre turu, premium umre, vip umre, kabe manzaralı otel, umre fiyatları 2026",
+    keywords: "ankara umre turu, vip umre turu ankara, umre turu 2026, kabe manzaralı otel, premium umre, umre fiyatları 2026, ankara seyahat acentası umre",
     jsonLd: buildTourJsonLd({
       name: "Premium Umre Turu",
       description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler, uzman din görevlisi rehberliği.",

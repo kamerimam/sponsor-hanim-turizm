@@ -120,11 +120,11 @@ const NOT_INCLUDED = [
 
 export default function BaliGiliAdalari() {
   useSeo({
-    title: "Bali & Gili Adaları Turu",
-    description: "7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 EUR. Sponsor Hanım Turizm.",
+    title: "Ankara Bali & Gili Adaları Turu | 7 Gün 1.650 EUR",
+    description: "Ankara'dan kalkışlı 7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 EUR. Sponsor Hanım Turizm.",
     path: "/turlar/bali-gili-adalari",
     image: "https://sponsorhanim.com/og-bali.jpg",
-    keywords: "bali turu, gili adaları, endonezya tatili, bali fiyatları, uzakdoğu turu",
+    keywords: "ankara bali turu, gili adaları turu ankara, endonezya tatili 2026, bali turu fiyatları, uzakdoğu turu ankara, ankara seyahat acentası bali",
     jsonLd: buildTourJsonLd({
       name: "Bali & Gili Adaları Turu",
       description: "7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar, turkuaz deniz ve tropikal deneyimler.",

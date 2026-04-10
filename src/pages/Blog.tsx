@@ -7,8 +7,10 @@ import { getBlogs, type BlogPost } from "@/lib/api";
 
 export default function Blog() {
   useSeo({
-    title: "Blog",
-    description: "Seyahat rehberleri, umre hazırlıkları, gezi ipuçları ve daha fazlası. Sponsor Hanım Turizm blog sayfası.",
+    title: "Seyahat Blog | Umre, Hac ve Gezi Rehberleri",
+    description: "Umre hazırlıkları, hac rehberi, Mısır gezi ipuçları, Bali seyahat tavsiyeleri. Sponsor Hanım Turizm blog sayfası.",
+    path: "/blog",
+    keywords: "umre hazırlıkları, hac rehberi, mısır gezisi, bali seyahat, seyahat blog, ankara seyahat acentası blog",
   });
 
   const [posts, setPosts] = useState<BlogPost[]>([]);

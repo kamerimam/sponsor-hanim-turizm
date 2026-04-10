@@ -23,8 +23,10 @@ const staggerContainer = {
 
 export default function Home() {
   useSeo({
-    title: "Sponsor Hanım Turizm | Hac, Umre ve Kültür Turları",
-    description: "Sponsor Hanım Turizm - 15 yılı aşkın tecrübesiyle hac, umre, Mısır ve Bali turları. Kutsal topraklara en güvenilir köprünüz.",
+    title: "Sponsor Hanım Turizm | Ankara Hac, Umre ve Kültür Turları",
+    description: "Ankara'nın güvenilir seyahat acentası Sponsor Hanım Turizm. 15 yılı aşkın tecrübesiyle hac, umre, Mısır ve Bali turları. Kutsal topraklara en güvenilir köprünüz.",
+    path: "/",
+    keywords: "ankara umre turu, ankara hac turu, ankara seyahat acentası, umre turu 2026, hac turu 2026, mısır turu, bali turu, sponsor hanım turizm",
   });
 
   return (

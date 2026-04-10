@@ -182,11 +182,11 @@ const NOT_INCLUDED = [
 
 export default function MisirUmreKombine() {
   useSeo({
-    title: "Mısır + Umre Kombine Turu",
-    description: "21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye tek yolculukta iki medeniyet. Kişi başı 5.800 USD. Sponsor Hanım Turizm.",
+    title: "Ankara Mısır + Umre Kombine Turu | 21 Gün 5.800 USD",
+    description: "Ankara'dan kalkışlı 21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye tek yolculukta iki medeniyet. Kişi başı 5.800 USD. Sponsor Hanım Turizm.",
     path: "/turlar/misir-umre-kombine",
     image: "https://sponsorhanim.com/og-misir-umre.jpg",
-    keywords: "mısır umre kombine, umre mısır turu, kahire mekke turu, kombine tur paketi",
+    keywords: "ankara mısır umre kombine, umre mısır turu ankara, kahire mekke turu, kombine tur paketi ankara, ankara seyahat acentası kombine, mısır umre 2026",
     jsonLd: buildTourJsonLd({
       name: "Mısır + Umre Kombine Turu",
       description: "21 günlük Mısır ve Umre kombine turu. Piramitlerden Kabe'ye — tek yolculukta iki medeniyet deneyimi.",

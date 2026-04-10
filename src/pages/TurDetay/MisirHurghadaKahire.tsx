@@ -116,11 +116,11 @@ const PRICES = [
 
 export default function MisirHurghadaKahire() {
   useSeo({
-    title: "Mısır Turu — Hurghada & Kahire",
-    description: "6 günlük Mısır turu: Kahire piramitleri ve Hurghada Kızıldeniz tatili. Kişi başı 800 USD. Sponsor Hanım Turizm.",
+    title: "Ankara Mısır Turu — Hurghada & Kahire | 6 Gün 800 USD",
+    description: "Ankara'dan kalkışlı 6 günlük Mısır turu: Kahire piramitleri ve Hurghada Kızıldeniz tatili bir arada. Kişi başı 800 USD'den başlayan fiyatlarla. Sponsor Hanım Turizm.",
     path: "/turlar/misir-hurghada-kahire",
     image: "https://sponsorhanim.com/og-misir.jpg",
-    keywords: "mısır turu, hurghada tatili, kahire piramitleri, kızıldeniz, mısır fiyatları",
+    keywords: "ankara mısır turu, hurghada tatili ankara, kahire piramitleri turu, kızıldeniz tatili, mısır turu fiyatları 2026, ankara seyahat acentası mısır",
     jsonLd: buildTourJsonLd({
       name: "Mısır Turu — Hurghada & Kahire",
       description: "6 günlük Mısır turu: Kahire'de piramit ve müze turu, Hurghada'da Kızıldeniz resort tatili.",
