@@ -26,6 +26,20 @@ async function request<T = unknown>(path: string, options: RequestInit = {}): Pr
 
 // ---------- Tip Tanımları ----------
 
+export interface TourDate {
+  id: number;
+  label: string | null;
+  start_date: string;       // ISO yyyy-mm-dd
+  end_date: string | null;
+  date_text: string | null; // "22 – 28 Ocak (Sömestr)"
+  price: string | number;
+  currency: string;          // "USD" | "TRY" | "EUR"
+  capacity_status: string | null; // "paylaşalım" | "bayrama yakın"
+  capacity_text: string | null;   // "5 kişi" | "12 boşluk" | "boş"
+  notes: string | null;
+  sort_order: number;
+}
+
 export interface Tour {
   id: number;
   type: string;
@@ -38,6 +52,10 @@ export interface Tour {
   detail_link: string | null;
   is_active: boolean;
   sort_order: number;
+  room_info?: string | null;
+  single_supplement?: string | number | null;
+  payment_terms?: string | null;
+  dates?: TourDate[];
 }
 
 export interface BlogPost {
@@ -101,6 +119,15 @@ export async function getTours(): Promise<Tour[]> {
   }
 }
 
+export async function getTourById(id: string | number): Promise<Tour | null> {
+  try {
+    return await request<Tour>(`/tours/${encodeURIComponent(String(id))}`);
+  } catch (err) {
+    console.error('Tur bulunamadı:', err);
+    return null;
+  }
+}
+
 export async function getBlogs(): Promise<BlogPost[]> {
   try {
     return await request<BlogPost[]>('/blogs');
@@ -148,6 +175,7 @@ export const api = {
     }),
 
   getTours,
+  getTourById,
   getBlogs,
   getBlogBySlug,
 

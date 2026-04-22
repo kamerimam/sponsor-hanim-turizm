@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useSeo } from "@/hooks/use-seo";
 import { useLocation } from "wouter";
@@ -25,8 +25,8 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CheckCircle2, CreditCard, Building, Wallet, CalendarClock, Loader2 } from "lucide-react";
-import { api } from "@/lib/api";
+import { CheckCircle2, CreditCard, Building, Wallet, CalendarClock, Loader2, BedDouble } from "lucide-react";
+import { api, getTours, type Tour, type TourDate } from "@/lib/api";
 
 const travelerSchema = z.object({
   firstName: z.string().min(2, { message: "Ad en az 2 karakter olmalıdır." }),
@@ -37,17 +37,17 @@ const travelerSchema = z.object({
   email: z.string().email({ message: "Geçerli bir e-posta adresi girin." }),
 });
 
-// İlk harfi büyük yap, geri kalanına dokunma
 const capitalizeFirst = (s: string) => (s.length > 0 ? s.charAt(0).toLocaleUpperCase("tr-TR") + s.slice(1) : s);
 
 const formSchema = z.object({
   tourId: z.string().min(1, { message: "Lütfen bir tur seçin." }),
+  tourDateId: z.string().optional(),
   travelerCount: z.string().min(1, { message: "Kişi sayısı seçilmelidir." }),
+  roomType: z.enum(["double", "single"]),
   travelers: z.array(travelerSchema).min(1),
   paymentPlan: z.enum(["full", "deposit"], { required_error: "Ödeme planı seçin." }),
   paymentMethod: z.enum(["credit_card", "bank_transfer"], { required_error: "Ödeme yöntemi seçin." }),
 
-  // Credit card fields - optional based on payment method
   cardNumber: z.string().optional(),
   cardExpiry: z.string().optional(),
   cardCvv: z.string().optional(),
@@ -66,15 +66,18 @@ const formSchema = z.object({
   }),
 });
 
-const TOURS = [
-  { id: "1", title: "Mısır Turu — Hurghada & Kahire", price: 800 },
-  { id: "6", title: "Mısır Turu — Sharm El Şeyh & Kahire (5★)", price: 900 },
-  { id: "2", title: "Umre Turu (Ekonomik)", price: 2800 },
-  { id: "3", title: "Umre Turu (Premium)", price: 4500 },
-  { id: "4", title: "Hac Turu 2025", price: 7500 },
-  { id: "5", title: "Mısır + Umre Kombine", price: 5800 },
-  { id: "7", title: "Bali & Gili Adaları Turu", price: 1650 },
-];
+const SINGLE_SUPPLEMENT_DEFAULT = 200;
+
+function currencySymbol(c: string | undefined): string {
+  if (c === "TRY") return "₺";
+  if (c === "EUR") return "€";
+  return "$";
+}
+
+function formatAmount(amount: number, currency: string | undefined): string {
+  const sym = currencySymbol(currency);
+  return `${amount.toLocaleString("tr-TR")} ${sym}`;
+}
 
 export default function Odeme() {
   useSeo({
@@ -84,14 +87,22 @@ export default function Odeme() {
   });
 
   const [, setLocation] = useLocation();
+  const [tours, setTours] = useState<Tour[]>([]);
+  const [toursLoading, setToursLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [successData, setSuccessData] = useState<{ paymentPlan: string; payableNow: number; remainingAmount: number; bookingNumber: string } | null>(null);
+  const [successData, setSuccessData] = useState<{
+    paymentPlan: string;
+    payableNow: number;
+    remainingAmount: number;
+    bookingNumber: string;
+    currency: string;
+  } | null>(null);
 
-  // Initialize URL search params manually since we don't have a wouter hook for it
   const searchParams = new URLSearchParams(window.location.search);
   const defaultTourId = searchParams.get("tour") || "";
+  const defaultDateId = searchParams.get("date") || "";
 
   const emptyTraveler = { firstName: "", lastName: "", tcId: "", birthDate: "", phone: "", email: "" };
 
@@ -99,7 +110,9 @@ export default function Odeme() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tourId: defaultTourId,
+      tourDateId: defaultDateId,
       travelerCount: "1",
+      roomType: "double",
       travelers: [emptyTraveler],
       paymentPlan: "full",
       paymentMethod: "credit_card",
@@ -120,7 +133,16 @@ export default function Odeme() {
   const watchPaymentMethod = form.watch("paymentMethod");
   const watchPaymentPlan = form.watch("paymentPlan");
   const watchTourId = form.watch("tourId");
+  const watchTourDateId = form.watch("tourDateId");
   const watchTravelerCount = form.watch("travelerCount");
+  const watchRoomType = form.watch("roomType");
+
+  useEffect(() => {
+    getTours().then((data) => {
+      setTours(data);
+      setToursLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
     const count = parseInt(watchTravelerCount || "1");
@@ -130,8 +152,41 @@ export default function Odeme() {
     replace(updated);
   }, [watchTravelerCount]);
 
-  const selectedTour = TOURS.find(t => t.id === watchTourId);
-  const totalPrice = selectedTour ? selectedTour.price * parseInt(watchTravelerCount || "1") : 0;
+  // Tur değişince ilk tarihe sıfırla (URL ile gelen date varsa onu koru)
+  useEffect(() => {
+    if (toursLoading) return;
+    const tour = tours.find((t) => String(t.id) === watchTourId);
+    if (!tour) return;
+    const dates = tour.dates ?? [];
+    if (dates.length === 0) {
+      form.setValue("tourDateId", "");
+      return;
+    }
+    const currentDateId = form.getValues("tourDateId");
+    const exists = dates.some((d) => String(d.id) === currentDateId);
+    if (!exists) {
+      form.setValue("tourDateId", String(dates[0].id));
+    }
+  }, [watchTourId, toursLoading, tours]);
+
+  const selectedTour = useMemo(
+    () => tours.find((t) => String(t.id) === watchTourId),
+    [tours, watchTourId],
+  );
+
+  const selectedDate: TourDate | undefined = useMemo(() => {
+    if (!selectedTour?.dates) return undefined;
+    return selectedTour.dates.find((d) => String(d.id) === watchTourDateId);
+  }, [selectedTour, watchTourDateId]);
+
+  const unitPrice = selectedDate ? Number(selectedDate.price) : 0;
+  const currency = selectedDate?.currency || "USD";
+  const supplement = selectedTour?.single_supplement
+    ? Number(selectedTour.single_supplement)
+    : SINGLE_SUPPLEMENT_DEFAULT;
+  const travelerCountNum = parseInt(watchTravelerCount || "1");
+  const singleExtra = watchRoomType === "single" ? supplement * travelerCountNum : 0;
+  const totalPrice = unitPrice * travelerCountNum + singleExtra;
   const payableNow = watchPaymentPlan === "deposit" ? Math.round(totalPrice * 0.5) : totalPrice;
   const remainingAmount = watchPaymentPlan === "deposit" ? totalPrice - payableNow : 0;
 
@@ -140,10 +195,18 @@ export default function Odeme() {
     setSubmitError(null);
 
     try {
-      const tour = TOURS.find((t) => t.id === values.tourId);
-      const specialRequests = `Tur: ${tour?.title || values.tourId}\nOdeme plani: ${values.paymentPlan === 'deposit' ? 'Kapora (%50)' : 'Tam odeme'}\nToplam: ${totalPrice} USD | Simdi: ${payableNow} USD | Kalan: ${remainingAmount} USD`;
+      const dateLabel = selectedDate?.date_text || selectedDate?.start_date || "—";
+      const roomLabel = values.roomType === "single"
+        ? `Tek kişilik oda (+${supplement} ${currencySymbol(currency)} / kişi)`
+        : "2 kişilik standart oda";
+      const specialRequests = [
+        `Tur: ${selectedTour?.title || values.tourId}`,
+        `Tarih: ${dateLabel}`,
+        `Oda: ${roomLabel}`,
+        `Odeme plani: ${values.paymentPlan === "deposit" ? "Kapora (%50)" : "Tam odeme"}`,
+        `Toplam: ${totalPrice} ${currency} | Simdi: ${payableNow} ${currency} | Kalan: ${remainingAmount} ${currency}`,
+      ].join("\n");
 
-      // GG/AA/YYYY → YYYY-MM-DD (backend için)
       const travelersIso = values.travelers.map((t) => {
         const m = t.birthDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
         return m ? { ...t, birthDate: `${m[3]}-${m[2]}-${m[1]}` } : t;
@@ -163,13 +226,14 @@ export default function Odeme() {
         payableNow,
         remainingAmount,
         bookingNumber: result.booking.booking_number,
+        currency,
       });
       setIsSuccess(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Rezervasyon olusturulamadi.';
+      const msg = err instanceof Error ? err.message : "Rezervasyon olusturulamadi.";
       setSubmitError(msg);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } finally {
       setIsSubmitting(false);
     }
@@ -178,7 +242,7 @@ export default function Odeme() {
   if (isSuccess) {
     return (
       <div className="flex-1 flex items-center justify-center py-24 px-4">
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           className="max-w-md w-full text-center space-y-6"
@@ -199,12 +263,12 @@ export default function Odeme() {
           {successData?.paymentPlan === "deposit" && (
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-sm text-left space-y-1">
               <p className="font-medium text-foreground">Ödeme Planınız: Kapora (%50)</p>
-              <p className="text-muted-foreground">Kapora tutarı: <span className="font-semibold text-primary">{successData.payableNow} USD</span></p>
-              <p className="text-muted-foreground">Tur günü ödenecek: <span className="font-semibold text-foreground">{successData.remainingAmount} USD</span></p>
+              <p className="text-muted-foreground">Kapora tutarı: <span className="font-semibold text-primary">{formatAmount(successData.payableNow, successData.currency)}</span></p>
+              <p className="text-muted-foreground">Tur günü ödenecek: <span className="font-semibold text-foreground">{formatAmount(successData.remainingAmount, successData.currency)}</span></p>
             </div>
           )}
-          <Button 
-            className="w-full mt-8" 
+          <Button
+            className="w-full mt-8"
             onClick={() => setLocation("/")}
           >
             Ana Sayfaya Dön
@@ -224,9 +288,9 @@ export default function Odeme() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
+
             <div className="lg:col-span-2 space-y-8">
-              {/* Traveler Info - one card per traveler */}
+              {/* Traveler Info */}
               {fields.map((item, index) => (
                 <Card key={item.id}>
                   <CardHeader>
@@ -360,11 +424,66 @@ export default function Odeme() {
                 </Card>
               ))}
 
+              {/* Oda Tipi */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="font-serif flex items-center gap-2">
+                    <BedDouble className="w-5 h-5 text-primary" />
+                    Oda Tipi
+                  </CardTitle>
+                  <CardDescription>
+                    {selectedTour?.room_info || "Standart konaklama veya tek kişilik oda farkı seçimi."}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <FormField
+                    control={form.control}
+                    name="roomType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            className="flex flex-col space-y-2"
+                          >
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="double" />
+                              <div className="font-medium w-full">
+                                <span>Standart Oda Paylaşımlı</span>
+                                <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                                  {selectedTour?.type === "Umre" ? "4 kişilik oda" : "2 kişilik oda"} — ek ücret yok
+                                </p>
+                              </div>
+                            </label>
+                            <label className="flex items-center space-x-3 rounded-md border p-4 cursor-pointer hover:bg-muted/50 transition-colors">
+                              <RadioGroupItem value="single" />
+                              <div className="font-medium w-full flex items-center justify-between">
+                                <div>
+                                  <span>Tek Kişilik Oda</span>
+                                  <p className="text-xs text-muted-foreground font-normal mt-0.5">
+                                    Kişi başı ek ücret
+                                  </p>
+                                </div>
+                                <span className="text-sm font-semibold text-primary">
+                                  +{supplement} {currencySymbol(currency)} / kişi
+                                </span>
+                              </div>
+                            </label>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+
               {/* Payment Plan Selection */}
               <Card>
                 <CardHeader>
                   <CardTitle className="font-serif">Ödeme Planı</CardTitle>
-                  <CardDescription>Ödemenizi nasıl yapmak istediğinizi seçin.</CardDescription>
+                  <CardDescription>Tüm turlarımızda 2 taksit imkânı sunulmaktadır.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <FormField
@@ -393,7 +512,7 @@ export default function Odeme() {
                               <div className="font-medium flex items-center gap-2 w-full">
                                 <CalendarClock className="w-4 h-4 text-primary" />
                                 <div>
-                                  <span>Kapora Ödemesi (%50)</span>
+                                  <span>2 Taksit (%50 + %50)</span>
                                   <p className="text-xs text-muted-foreground font-normal mt-0.5">Şimdi %50 ödeyin, kalan %50'yi tur günü ödeyin.</p>
                                 </div>
                               </div>
@@ -411,10 +530,10 @@ export default function Odeme() {
                       animate={{ opacity: 1, y: 0 }}
                       className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-1"
                     >
-                      <p className="text-sm font-medium text-foreground">Kapora Detayı</p>
+                      <p className="text-sm font-medium text-foreground">Taksit Detayı</p>
                       <div className="text-sm text-muted-foreground space-y-0.5">
-                        <p>Şimdi ödenecek: <span className="font-semibold text-primary">{payableNow} USD</span></p>
-                        <p>Tur günü ödenecek: <span className="font-semibold text-foreground">{remainingAmount} USD</span></p>
+                        <p>Şimdi ödenecek (%50): <span className="font-semibold text-primary">{formatAmount(payableNow, currency)}</span></p>
+                        <p>Tur günü ödenecek (%50): <span className="font-semibold text-foreground">{formatAmount(remainingAmount, currency)}</span></p>
                       </div>
                     </motion.div>
                   )}
@@ -458,7 +577,6 @@ export default function Odeme() {
                     )}
                   />
 
-                  {/* Conditional Payment Fields */}
                   <motion.div
                     initial={false}
                     animate={{ height: watchPaymentMethod === "credit_card" ? "auto" : 0, opacity: watchPaymentMethod === "credit_card" ? 1 : 0 }}
@@ -527,7 +645,7 @@ export default function Odeme() {
                       <h4 className="font-medium text-foreground">Banka Bilgileri</h4>
                       <p className="text-sm text-muted-foreground">
                         {watchPaymentPlan === "deposit"
-                          ? `Lütfen kapora tutarını (${payableNow} USD) aşağıdaki hesaba gönderin.`
+                          ? `Lütfen kapora tutarını (${formatAmount(payableNow, currency)}) aşağıdaki hesaba gönderin.`
                           : "Lütfen toplam tutarı aşağıdaki hesaba gönderin."}
                       </p>
                       <div className="bg-background p-3 rounded border text-sm mt-2">
@@ -639,15 +757,15 @@ export default function Odeme() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Tur Seçimi</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Tur Seçin" />
+                              <SelectValue placeholder={toursLoading ? "Yükleniyor..." : "Tur Seçin"} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {TOURS.map(tour => (
-                              <SelectItem key={tour.id} value={tour.id}>{tour.title}</SelectItem>
+                            {tours.map(tour => (
+                              <SelectItem key={tour.id} value={String(tour.id)}>{tour.title}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -655,6 +773,33 @@ export default function Odeme() {
                       </FormItem>
                     )}
                   />
+
+                  {selectedTour && (selectedTour.dates ?? []).length > 0 && (
+                    <FormField
+                      control={form.control}
+                      name="tourDateId"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Kalkış Tarihi</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value || ""}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Tarih Seçin" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {(selectedTour.dates ?? []).map((d) => (
+                                <SelectItem key={d.id} value={String(d.id)}>
+                                  {d.date_text || d.start_date} — {formatAmount(Number(d.price), d.currency)}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  )}
 
                   <FormField
                     control={form.control}
@@ -681,15 +826,23 @@ export default function Odeme() {
                   <div className="border-t pt-4 space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Tur Bedeli ({watchTravelerCount} kişi)</span>
-                      <span>{selectedTour ? `${selectedTour.price} USD` : "0 USD"}</span>
+                      <span>{selectedDate ? formatAmount(unitPrice * travelerCountNum, currency) : "—"}</span>
                     </div>
+                    {watchRoomType === "single" && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Tek Kişilik Oda Farkı ({travelerCountNum}× {supplement})</span>
+                        <span>+{formatAmount(singleExtra, currency)}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Vergiler & Harçlar</span>
                       <span>Dahil</span>
                     </div>
                     <div className="flex justify-between items-center pt-3 border-t">
                       <span className="font-medium">Toplam Tutar</span>
-                      <span className={`text-2xl font-bold ${watchPaymentPlan === "deposit" ? "text-muted-foreground line-through text-lg" : "text-primary"}`}>{totalPrice} USD</span>
+                      <span className={`text-2xl font-bold ${watchPaymentPlan === "deposit" ? "text-muted-foreground line-through text-lg" : "text-primary"}`}>
+                        {formatAmount(totalPrice, currency)}
+                      </span>
                     </div>
 
                     {watchPaymentPlan === "deposit" && (
@@ -700,11 +853,11 @@ export default function Odeme() {
                       >
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Şimdi Ödenecek (%50)</span>
-                          <span className="font-semibold text-primary">{payableNow} USD</span>
+                          <span className="font-semibold text-primary">{formatAmount(payableNow, currency)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-muted-foreground">Tur Günü Ödenecek (%50)</span>
-                          <span className="font-semibold">{remainingAmount} USD</span>
+                          <span className="font-semibold">{formatAmount(remainingAmount, currency)}</span>
                         </div>
                       </motion.div>
                     )}
