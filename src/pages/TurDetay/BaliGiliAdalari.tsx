@@ -90,14 +90,14 @@ const DAILY_PROGRAM = [
     icon: Ship,
     highlight: false,
     description:
-      "25 Ocak saat 00:50 kalkışıyla Qatar Airways ile Doha üzerinden İstanbul'a dönüş. İstanbul'a varış: 25 Ocak 12:20. Bavulunuzda adanın kokusu, kalbinizde bir \"bir gün tekrar döneceğim\" hissi.",
+      "Tur dönüş günü gece kalkışıyla Qatar Airways ile Doha üzerinden İstanbul'a dönüş. Bavulunuzda adanın kokusu, kalbinizde bir \"bir gün tekrar döneceğim\" hissi.",
   },
 ];
 
 const ACCOMMODATIONS = [
-  { date: "19–22 Ocak", hotel: "Horison Ultima Seminyak Bali", stars: "4★", rating: "8.4" },
-  { date: "22–24 Ocak", hotel: "Ombak Sunset — Gili Adası", stars: "4★", rating: "8.7" },
-  { date: "24–25 Ocak", hotel: "Kuta Seaview Beach Resort", stars: "4★", rating: "8.7" },
+  { date: "1.–4. Gün", hotel: "Horison Ultima Seminyak Bali", stars: "4★", rating: "8.4" },
+  { date: "4.–6. Gün", hotel: "Ombak Sunset — Gili Adası", stars: "4★", rating: "8.7" },
+  { date: "6.–7. Gün", hotel: "Kuta Seaview Beach Resort", stars: "4★", rating: "8.7" },
 ];
 
 const INCLUDED = [

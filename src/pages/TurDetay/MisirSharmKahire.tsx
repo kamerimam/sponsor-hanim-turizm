@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,16 @@ import { Badge } from "@/components/ui/badge";
 import sharmImg from "@/assets/images/egypt sharm el sheikh.png";
 import { useSeo } from "@/hooks/use-seo";
 import { buildTourJsonLd } from "@/lib/tour-schema";
+import { getTourById, type TourDate } from "@/lib/api";
+
+const TOUR_ID = 6;
+
+function formatDatePrice(value: string | number, currency: string): string {
+  const n = typeof value === "string" ? parseFloat(value) : value;
+  if (Number.isNaN(n)) return String(value);
+  const sym = currency === "TRY" ? "₺" : currency === "EUR" ? "€" : "$";
+  return `${n.toLocaleString("tr-TR")}${sym}`;
+}
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -111,16 +122,20 @@ const NOT_INCLUDED = [
   "Program dışı ekstra turlar",
 ];
 
-const PRICES = [
-  { date: "22–28 Ocak", price: "950$", note: "Sömestr" },
-  { date: "10–16 Şubat", price: "900$", note: null },
-  { date: "18–24 Mart", price: "1.000$", note: "Ramazan Bayramı" },
-  { date: "10–16 Nisan", price: "950$", note: null },
-  { date: "1–7 Mayıs", price: "950$", note: null },
-  { date: "27 Mayıs – 2 Haziran", price: "950$", note: null },
-];
-
 export default function MisirSharmKahire() {
+  const [dates, setDates] = useState<TourDate[]>([]);
+  const [datesLoading, setDatesLoading] = useState(true);
+
+  useEffect(() => {
+    getTourById(TOUR_ID).then((tour) => {
+      const today = new Date().toISOString().slice(0, 10);
+      const all = tour?.dates ?? [];
+      const upcoming = all.filter((d) => !d.start_date || d.start_date >= today);
+      setDates(upcoming.length > 0 ? upcoming : all);
+      setDatesLoading(false);
+    });
+  }, []);
+
   useSeo({
     title: "Ankara Mısır Turu — Sharm El Şeyh & Kahire | 6 Gün 900 USD",
     description: "Ankara'dan kalkışlı 6 günlük Mısır turu: Sharm El Şeyh 5 yıldızlı resort tatili ve Kahire piramitleri. Kişi başı 900 USD. Sponsor Hanım Turizm.",
@@ -376,24 +391,34 @@ export default function MisirSharmKahire() {
                 <span className="text-center">Kişi Başı Fiyat</span>
                 <span className="text-right">Not</span>
               </div>
-              {PRICES.map((row, i) => (
+              {datesLoading && (
+                <div className="p-6 text-center text-sm text-muted-foreground">
+                  Tarihler yükleniyor...
+                </div>
+              )}
+              {!datesLoading && dates.length === 0 && (
+                <div className="p-6 text-center text-sm text-muted-foreground">
+                  Güncel tarih bilgisi için bizimle iletişime geçin.
+                </div>
+              )}
+              {!datesLoading && dates.map((d, i) => (
                 <div
-                  key={i}
+                  key={d.id}
                   className={`grid grid-cols-3 p-4 items-center ${
                     i % 2 === 0 ? "bg-card" : "bg-muted/30"
                   }`}
                 >
                   <span className="text-foreground font-medium flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-primary shrink-0" />
-                    <span className="text-sm">{row.date}</span>
+                    <span className="text-sm">{d.date_text || d.start_date}</span>
                   </span>
                   <span className="text-center text-2xl font-bold text-primary font-serif">
-                    {row.price}
+                    {formatDatePrice(d.price, d.currency)}
                   </span>
                   <span className="text-right text-sm text-muted-foreground">
-                    {row.note && (
+                    {d.label && (
                       <Badge variant="outline" className="text-xs">
-                        {row.note}
+                        {d.label}
                       </Badge>
                     )}
                   </span>
