@@ -383,10 +383,10 @@ export default function MisirHurghadaKahire() {
           </div>
 
           <Card className="overflow-hidden border-primary/20">
-            <CardContent className="p-0">
-              <div className="grid grid-cols-2 bg-primary/10 p-4 text-sm font-bold text-foreground uppercase tracking-wider">
-                <span>Tarih</span>
-                <span className="text-right">Kişi Başı Fiyat</span>
+            <CardContent className="p-6">
+              <div className="flex items-center gap-2 mb-4 text-sm font-bold text-foreground uppercase tracking-wider">
+                <Calendar className="w-4 h-4 text-primary" />
+                <span>Tarih Seçin ve Rezervasyon Yapın</span>
               </div>
               {datesLoading && (
                 <div className="p-6 text-center text-sm text-muted-foreground">
@@ -398,22 +398,42 @@ export default function MisirHurghadaKahire() {
                   Güncel tarih bilgisi için bizimle iletişime geçin.
                 </div>
               )}
-              {!datesLoading && dates.map((d, i) => (
-                <div
-                  key={d.id}
-                  className={`grid grid-cols-2 p-4 items-center ${
-                    i % 2 === 0 ? "bg-card" : "bg-muted/30"
-                  }`}
-                >
-                  <span className="text-foreground font-medium flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-primary shrink-0" />
-                    <span className="truncate">{d.date_text || d.start_date}</span>
-                  </span>
-                  <span className="text-right text-2xl font-bold text-primary font-serif">
-                    {formatDatePrice(d.price, d.currency)}
-                  </span>
+              {!datesLoading && dates.length > 0 && (
+                <div className="flex flex-col gap-3">
+                  {dates.map((d) => (
+                    <div
+                      key={d.id}
+                      className="flex items-center justify-between gap-4 rounded-lg border border-border bg-muted/30 p-4 hover:border-primary/40 hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="text-base font-medium text-foreground">
+                            {d.date_text || d.start_date}
+                          </span>
+                          {d.label && (
+                            <Badge variant="outline" className="text-xs border-primary/40 text-primary">
+                              {d.label}
+                            </Badge>
+                          )}
+                        </div>
+                        {d.capacity_text && (
+                          <div className="text-xs text-muted-foreground mt-1">
+                            Kontenjan: {d.capacity_text}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0">
+                        <span className="text-xl font-bold text-primary font-serif">
+                          {formatDatePrice(d.price, d.currency)}
+                        </span>
+                        <Button asChild size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90">
+                          <Link href={`/odeme?tour=${TOUR_ID}&date=${d.id}`}>Seç</Link>
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </CardContent>
           </Card>
         </div>
