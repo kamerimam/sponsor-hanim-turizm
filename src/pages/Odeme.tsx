@@ -651,11 +651,11 @@ export default function Odeme() {
                       <div className="bg-background p-3 rounded border text-sm mt-2">
                         <div className="grid grid-cols-[100px_1fr] gap-2">
                           <span className="text-muted-foreground">Hesap Adı:</span>
-                          <span className="font-medium">Sponsor Hanım Turizm A.Ş.</span>
+                          <span className="font-medium">Sevinç Baş</span>
                           <span className="text-muted-foreground">Banka:</span>
-                          <span className="font-medium">Kuveyt Türk</span>
+                          <span className="font-medium">QNB Enpara</span>
                           <span className="text-muted-foreground">IBAN:</span>
-                          <span className="font-medium font-mono">TR12 0000 0000 0000 0000 0000 00</span>
+                          <span className="font-medium font-mono">TR45 0015 7000 0000 0115 0921 36</span>
                         </div>
                       </div>
                     </div>
