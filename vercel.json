@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/turlar/hac-turu-2025", "destination": "/turlar/hac-turu-2026", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]

@@ -33,12 +33,35 @@ const staggerContainer = {
 };
 
 const INFO_ITEMS = [
-  { icon: Calendar, label: "Süre", value: "14 Gün / 13 Gece" },
+  { icon: Calendar, label: "Süre Seçenekleri", value: "7 Gün veya 14 Gün" },
   { icon: Plane, label: "Kalkış", value: "İstanbul Havalimanı" },
   { icon: Hotel, label: "Konaklama", value: "5★ Kabe Manzaralı" },
   { icon: Users, label: "Rehberlik", value: "Uzman Din Görevlisi" },
   { icon: Crown, label: "Hizmet", value: "VIP Transfer & Özel Araç" },
-  { icon: DollarSign, label: "Fiyat", value: "4.500$ / kişi" },
+  { icon: DollarSign, label: "Fiyat", value: "1.550$ – 4.500$ / kişi" },
+];
+
+const PACKAGES = [
+  {
+    name: "Premium 7 Gün",
+    duration: "7 Gün / 6 Gece",
+    price: 1550,
+    priceLabel: "1.550$",
+    tagline: "Kısa sürede kapsamlı bir umre deneyimi",
+    audience: "Yoğun iş temposu olanlar ve ilk kez umreye gidenler için",
+    structure: ["2 gece Medine", "4 gece Mekke", "Kabe manzaralı 5★ oteller"],
+    highlight: false,
+  },
+  {
+    name: "VIP 14 Gün",
+    duration: "14 Gün / 13 Gece",
+    price: 4500,
+    priceLabel: "4.500$",
+    tagline: "Her kutsal mekanda bol vakit, tam kapsamlı VIP hizmet",
+    audience: "Manevi yolculuğu dolu dolu yaşamak isteyenler için",
+    structure: ["5 gece Medine", "8 gece Mekke", "Kabe manzaralı 5★ oteller", "Özel VIP transfer ve araç"],
+    highlight: true,
+  },
 ];
 
 const DAILY_PROGRAM = [
@@ -126,21 +149,69 @@ const NOT_INCLUDED = [
 
 export default function UmrePremium() {
   useSeo({
-    title: "Ankara VIP Umre Turu 2026 | 14 Gün 5★ Kabe Manzaralı",
-    description: "Ankara'dan kalkışlı 14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler, uzman din görevlisi. Kişi başı 4.500 USD. Sponsor Hanım Turizm.",
+    title: "Ankara VIP Umre Turu 2026 | 7 veya 14 Gün — 5★ Kabe Manzaralı",
+    description: "Ankara'dan kalkışlı VIP Umre Turu, iki paket: 7 Gün (1.550 USD) veya 14 Gün (4.500 USD). Kabe manzaralı 5★ oteller, özel transferler, uzman din görevlisi. Sponsor Hanım Turizm.",
     path: "/turlar/umre-premium",
     image: "https://sponsorhanimtravel.com/og-umre.jpg",
-    keywords: "ankara umre turu, vip umre turu ankara, umre turu 2026, kabe manzaralı otel, premium umre, umre fiyatları 2026, ankara seyahat acentası umre",
-    jsonLd: buildTourJsonLd({
-      name: "Premium Umre Turu",
-      description: "14 günlük VIP Umre Turu. Kabe manzaralı 5 yıldızlı oteller, özel transferler, uzman din görevlisi rehberliği.",
-      image: "https://sponsorhanimtravel.com/og-umre.jpg",
-      slug: "umre-premium",
-      price: 4500,
-      currency: "USD",
-      durationDays: 14,
-      destinations: ["Mekke", "Medine"],
-    }),
+    keywords: "ankara umre turu, vip umre turu ankara, umre turu 2026, kabe manzaralı otel, premium umre, 7 gün umre, 14 gün umre, umre fiyatları 2026, ankara seyahat acentası umre",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "TouristTrip",
+        name: "Premium Umre Turu",
+        description: "Premium Umre Turu — iki paket seçeneği: 7 gün (1.550 USD) ve 14 gün (4.500 USD). Kabe manzaralı 5★ oteller, özel transferler, uzman din görevlisi rehberliği.",
+        image: "https://sponsorhanimtravel.com/og-umre.jpg",
+        url: "https://sponsorhanimtravel.com/turlar/umre-premium",
+        inLanguage: "tr-TR",
+        touristType: ["Dini Turizm", "Umre"],
+        itinerary: [
+          { "@type": "City", name: "Mekke" },
+          { "@type": "City", name: "Medine" },
+        ],
+        provider: {
+          "@type": "TravelAgency",
+          name: "Sponsor Hanım Turizm",
+          url: "https://sponsorhanimtravel.com",
+          telephone: "+905444986208",
+        },
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: "USD",
+          lowPrice: 1550,
+          highPrice: 4500,
+          offerCount: 2,
+          availability: "https://schema.org/InStock",
+          url: "https://sponsorhanimtravel.com/turlar/umre-premium",
+          offers: [
+            {
+              "@type": "Offer",
+              name: "Premium Umre 7 Gün",
+              price: 1550,
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: "https://sponsorhanimtravel.com/turlar/umre-premium",
+            },
+            {
+              "@type": "Offer",
+              name: "VIP Umre 14 Gün",
+              price: 4500,
+              priceCurrency: "USD",
+              availability: "https://schema.org/InStock",
+              url: "https://sponsorhanimtravel.com/turlar/umre-premium",
+            },
+          ],
+        },
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: "https://sponsorhanimtravel.com" },
+          { "@type": "ListItem", position: 2, name: "Turlar", item: "https://sponsorhanimtravel.com/turlar" },
+          { "@type": "ListItem", position: 3, name: "Premium Umre Turu", item: "https://sponsorhanimtravel.com/turlar/umre-premium" },
+        ],
+      },
+    ],
   });
   return (
     <div className="flex flex-col min-h-screen">
@@ -162,7 +233,7 @@ export default function UmrePremium() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Badge className="bg-primary/90 text-primary-foreground text-sm px-4 py-1 mb-6">
-              VIP Umre — 14 Gün 13 Gece
+              Premium Umre — 7 Gün veya 14 Gün
             </Badge>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight">
               Kabe'ye En Yakın{" "}
@@ -171,7 +242,7 @@ export default function UmrePremium() {
               Umre Deneyimi
             </h1>
             <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-4 font-medium tracking-wide">
-              14 Gün | 5★ Kabe Manzaralı Oteller | VIP Transfer | Uzman Din Görevlisi
+              7 veya 14 Gün | 5★ Kabe Manzaralı Oteller | VIP Transfer | Uzman Din Görevlisi
             </p>
             <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-10 font-light">
               Kabe'nin kapısından birkaç adım ötede uyandığınız,
@@ -229,11 +300,93 @@ export default function UmrePremium() {
         </div>
       </section>
 
+      {/* Paket Seçenekleri */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4">
+              İki <span className="text-primary italic">Paket</span> Seçeneği
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
+              İhtiyacınıza ve zamanınıza göre iki paket sunuyoruz. Her iki paket de aynı 5★ konfor ve uzman rehberlikle — tek fark, kutsal topraklarda geçireceğiniz süre.
+            </p>
+            <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full mt-6" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PACKAGES.map((pkg, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+              >
+                <Card
+                  className={`h-full overflow-hidden transition-shadow hover:shadow-xl ${
+                    pkg.highlight ? "border-primary/40 bg-primary/5" : "border-border"
+                  }`}
+                >
+                  <CardContent className="p-8">
+                    {pkg.highlight && (
+                      <Badge className="mb-4 bg-primary/20 text-primary">En Popüler</Badge>
+                    )}
+                    <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground mb-2">
+                      {pkg.name}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">{pkg.tagline}</p>
+                    <div className="flex items-baseline gap-2 mb-6">
+                      <span className="text-4xl font-bold text-primary font-serif">
+                        {pkg.priceLabel}
+                      </span>
+                      <span className="text-sm text-muted-foreground">/ kişi</span>
+                    </div>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                      Süre
+                    </div>
+                    <p className="text-foreground font-medium mb-4">{pkg.duration}</p>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                      Kime Uygun
+                    </div>
+                    <p className="text-sm text-foreground mb-4">{pkg.audience}</p>
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">
+                      Dahil Olanlar
+                    </div>
+                    <ul className="space-y-2 mb-6">
+                      {pkg.structure.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-foreground">
+                          <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      asChild
+                      className={`w-full ${
+                        pkg.highlight
+                          ? "bg-primary hover:bg-primary/90 text-primary-foreground"
+                          : ""
+                      }`}
+                      variant={pkg.highlight ? "default" : "outline"}
+                    >
+                      <Link href="/odeme?tour=3">{pkg.priceLabel} — Rezervasyon</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Daily Program */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4">
+            <span className="text-xs font-bold text-primary uppercase tracking-widest">
+              14 Günlük VIP Paket için detaylı program
+            </span>
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4 mt-2">
               Günlük <span className="text-primary italic">Program</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto mt-4">
@@ -416,7 +569,7 @@ export default function UmrePremium() {
 
       {/* Prices */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 max-w-2xl">
+        <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
               Fiyat & <span className="text-primary italic">Kayıt</span>
@@ -426,19 +579,20 @@ export default function UmrePremium() {
 
           <Card className="overflow-hidden border-primary/20">
             <CardContent className="p-0">
-              <div className="grid grid-cols-2 bg-primary/10 p-4 text-sm font-bold text-foreground uppercase tracking-wider">
+              <div className="grid grid-cols-3 bg-primary/10 p-4 text-sm font-bold text-foreground uppercase tracking-wider">
                 <span>Detay</span>
-                <span className="text-right">Tutar</span>
+                <span className="text-center">7 Gün Paket</span>
+                <span className="text-right">14 Gün Paket</span>
               </div>
               {[
-                { label: "Kişi başı fiyat (2 kişilik oda)", value: "4.500$" },
-                { label: "Single oda farkı", value: "+800$" },
-                { label: "Ön ödeme (kesin kayıt)", value: "2.000$" },
-                { label: "Kalan ödeme", value: "Tur tarihinden 2 hafta önce" },
+                { label: "Kişi başı fiyat (2 kişilik oda)", p7: "1.550$", p14: "4.500$" },
+                { label: "Single oda farkı", p7: "+400$", p14: "+800$" },
+                { label: "Ön ödeme (kesin kayıt)", p7: "700$", p14: "2.000$" },
+                { label: "Kalan ödeme", p7: "Tur tarihinden 2 hafta önce", p14: "Tur tarihinden 2 hafta önce" },
               ].map((row, i) => (
                 <div
                   key={i}
-                  className={`grid grid-cols-2 p-4 items-center ${
+                  className={`grid grid-cols-3 p-4 items-center ${
                     i % 2 === 0 ? "bg-card" : "bg-muted/30"
                   }`}
                 >
@@ -446,8 +600,11 @@ export default function UmrePremium() {
                     <DollarSign className="w-4 h-4 text-primary shrink-0" />
                     <span className="text-sm">{row.label}</span>
                   </span>
-                  <span className="text-right text-xl font-bold text-primary font-serif">
-                    {row.value}
+                  <span className="text-center text-base md:text-lg font-bold text-foreground font-serif">
+                    {row.p7}
+                  </span>
+                  <span className="text-right text-base md:text-lg font-bold text-primary font-serif">
+                    {row.p14}
                   </span>
                 </div>
               ))}
@@ -456,7 +613,7 @@ export default function UmrePremium() {
 
           <div className="mt-6 p-4 rounded-lg bg-muted/50 border border-border">
             <p className="text-sm text-muted-foreground leading-relaxed">
-              <strong className="text-foreground">Önemli Not:</strong> Umre vizesi işlemleri tarafımızca takip edilir. Pasaportunuzun en az 6 ay geçerli olması gerekmektedir. Ön ödeme sonrası 30 gün öncesine kadar tam iade yapılır.
+              <strong className="text-foreground">Önemli Not:</strong> Umre vizesi işlemleri tarafımızca takip edilir. Pasaportunuzun en az 6 ay geçerli olması gerekmektedir. Ön ödeme sonrası 30 gün öncesine kadar tam iade yapılır. 7 günlük pakette konaklama 2 gece Medine + 4 gece Mekke olarak düzenlenir.
             </p>
           </div>
         </div>

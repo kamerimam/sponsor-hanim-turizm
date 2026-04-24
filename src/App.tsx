@@ -16,9 +16,11 @@ const Odeme = lazy(() => import("@/pages/Odeme"));
 const MisirHurghadaKahire = lazy(() => import("@/pages/TurDetay/MisirHurghadaKahire"));
 const MisirSharmKahire = lazy(() => import("@/pages/TurDetay/MisirSharmKahire"));
 const BaliGiliAdalari = lazy(() => import("@/pages/TurDetay/BaliGiliAdalari"));
-const HacTuru2025 = lazy(() => import("@/pages/TurDetay/HacTuru2025"));
+const HacTuru2026 = lazy(() => import("@/pages/TurDetay/HacTuru2026"));
 const UmrePremium = lazy(() => import("@/pages/TurDetay/UmrePremium"));
 const MisirUmreKombine = lazy(() => import("@/pages/TurDetay/MisirUmreKombine"));
+const DubaiTuru = lazy(() => import("@/pages/TurDetay/DubaiTuru"));
+const GapTuru = lazy(() => import("@/pages/TurDetay/GapTuru"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogDetay = lazy(() => import("@/pages/BlogDetay"));
@@ -52,9 +54,11 @@ function Router() {
         <Route path="/turlar/misir-hurghada-kahire" component={MisirHurghadaKahire} />
         <Route path="/turlar/misir-sharm-kahire" component={MisirSharmKahire} />
         <Route path="/turlar/bali-gili-adalari" component={BaliGiliAdalari} />
-        <Route path="/turlar/hac-turu-2025" component={HacTuru2025} />
+        <Route path="/turlar/hac-turu-2026" component={HacTuru2026} />
         <Route path="/turlar/umre-premium" component={UmrePremium} />
         <Route path="/turlar/misir-umre-kombine" component={MisirUmreKombine} />
+        <Route path="/turlar/dubai-turu" component={DubaiTuru} />
+        <Route path="/turlar/gap-turu" component={GapTuru} />
         <Route path="/odeme" component={Odeme} />
         <Route path="/politikalar/kvkk-aydinlatma-metni" component={KvkkAydinlatmaMetni} />
         <Route path="/politikalar/kvkk-acik-riza-beyani" component={KvkkAcikRizaBeyan} />

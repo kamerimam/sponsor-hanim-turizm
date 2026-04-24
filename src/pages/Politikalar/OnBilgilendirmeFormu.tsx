@@ -55,7 +55,7 @@ export default function OnBilgilendirmeFormu() {
           </h2>
           <p>Paket Tur Sözleşmeleri Yönetmeliği md. 5/1 uyarınca tüketiciye aşağıdaki hususlarda bilgi verilir:</p>
           <ul className="list-disc pl-6 space-y-1">
-            <li><strong>Tur adı ve güzergâhı:</strong> Rezervasyon esnasında seçilecek tur (örn. Umre Premium, Hac 2025, Mısır Hurghada-Kahire, Bali-Gili).</li>
+            <li><strong>Tur adı ve güzergâhı:</strong> Rezervasyon esnasında seçilecek tur (örn. Umre Premium, Hac 2026, Mısır Hurghada-Kahire, Bali-Gili).</li>
             <li><strong>Ulaşım:</strong> Ulaşım aracı (uçak/otobüs), havayolu firması, kalkış-dönüş noktası ve tarihleri.</li>
             <li><strong>Konaklama:</strong> Otel adı, sınıfı (yıldız), oda tipi, pansiyon düzeni ve Kabe/merkeze mesafe (hac/umre turları için).</li>
             <li><strong>Yemek ve öğün planı:</strong> Kahvaltı dâhil, yarım pansiyon, tam pansiyon vb.</li>

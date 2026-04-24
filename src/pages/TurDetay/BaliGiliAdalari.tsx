@@ -120,8 +120,8 @@ const NOT_INCLUDED = [
 
 export default function BaliGiliAdalari() {
   useSeo({
-    title: "Ankara Bali & Gili Adaları Turu | 7 Gün 1.650 EUR",
-    description: "Ankara'dan kalkışlı 7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 EUR. Sponsor Hanım Turizm.",
+    title: "Ankara Bali & Gili Adaları Turu | 7 Gün 1.650 USD",
+    description: "Ankara'dan kalkışlı 7 günlük Bali ve Gili Adaları turu. Pirinç terasları, tapınaklar ve turkuaz deniz. Kişi başı 1.650 USD. Sponsor Hanım Turizm.",
     path: "/turlar/bali-gili-adalari",
     image: "https://sponsorhanimtravel.com/og-bali.jpg",
     keywords: "ankara bali turu, gili adaları turu ankara, endonezya tatili 2026, bali turu fiyatları, uzakdoğu turu ankara, ankara seyahat acentası bali",
@@ -131,7 +131,7 @@ export default function BaliGiliAdalari() {
       image: "https://sponsorhanimtravel.com/og-bali.jpg",
       slug: "bali-gili-adalari",
       price: 1650,
-      currency: "EUR",
+      currency: "USD",
       durationDays: 7,
       destinations: ["Ubud", "Seminyak", "Gili Trawangan"],
     }),

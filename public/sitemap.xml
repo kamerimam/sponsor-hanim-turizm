@@ -3,7 +3,7 @@
   <!-- Ana Sayfa -->
   <url>
     <loc>https://sponsorhanimtravel.com/</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,7 +11,7 @@
   <!-- Turlar Listesi -->
   <url>
     <loc>https://sponsorhanimtravel.com/turlar</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -19,37 +19,49 @@
   <!-- Tur Detay Sayfaları -->
   <url>
     <loc>https://sponsorhanimtravel.com/turlar/umre-premium</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sponsorhanimtravel.com/turlar/hac-turu-2025</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://sponsorhanimtravel.com/turlar/hac-turu-2026</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/turlar/misir-umre-kombine</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/turlar/misir-hurghada-kahire</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/turlar/misir-sharm-kahire</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/turlar/bali-gili-adalari</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/turlar/dubai-turu</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/turlar/gap-turu</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -57,31 +69,109 @@
   <!-- Blog -->
   <url>
     <loc>https://sponsorhanimtravel.com/blog</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://sponsorhanimtravel.com/blog/misirda-mutlaka-gorulmesi-gereken-5-yer</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://sponsorhanimtravel.com/blog/ankara-umre-turu-rehberi-2026</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/blog/umre-ibadeti-oncesi-hazirliklar</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/umre-dualari-ve-adabi</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/ilk-umre-deneyimi-ipuclari</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/umre-vizesi-nasil-alinir</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/hac-2026-kontenjanlari-ve-basvuru</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/hac-oncesi-yapilacaklar-listesi</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/hac-ve-umre-farklari</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/misirda-mutlaka-gorulmesi-gereken-5-yer</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/kahire-gezi-rehberi</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/hurghada-ve-kizildeniz-tatili</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/blog/bali-gili-adalari-rehberi</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sponsorhanimtravel.com/blog/kizildeniz-dalis-deneyimi</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://sponsorhanimtravel.com/blog/bali-7-gun-gezi-programi</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/dubai-gezi-rehberi-2026</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/gap-turu-gidilecek-yerler</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/pasaport-ve-vize-islemleri</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://sponsorhanimtravel.com/blog/tur-mu-bireysel-seyahat-mi</loc>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -89,7 +179,7 @@
   <!-- İletişim -->
   <url>
     <loc>https://sponsorhanimtravel.com/iletisim</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -97,55 +187,55 @@
   <!-- Politikalar -->
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/kvkk-aydinlatma-metni</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/kvkk-acik-riza-beyani</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/cerez-politikasi</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/iptal-iade-politikasi</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/vize-bilgilendirme</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/kullanim-kosullari</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/on-bilgilendirme-formu</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/ticari-iletisim-onay</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://sponsorhanimtravel.com/politikalar/paket-tur-sozlesmesi</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

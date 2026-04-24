@@ -166,18 +166,18 @@ const NOT_INCLUDED = [
   "Saç tıraşı ücreti",
 ];
 
-export default function HacTuru2025() {
+export default function HacTuru2026() {
   useSeo({
     title: "Ankara Hac Turu 2026 | 21 Gün Tam Kapsamlı Program",
     description: "Ankara'dan kalkışlı 21 günlük Hac Turu. Uzman din görevlileri eşliğinde eksiksiz hac farizası, 5★ oteller, VIP çadır. Kişi başı 7.500 USD. Sponsor Hanım Turizm.",
-    path: "/turlar/hac-turu-2025",
+    path: "/turlar/hac-turu-2026",
     image: "https://sponsorhanimtravel.com/og-hac.jpg",
     keywords: "ankara hac turu, hac turu 2026, ankara hac fiyatları, hac kayıtları 2026, mekke medine hac, ankara seyahat acentası hac, hac kotası",
     jsonLd: buildTourJsonLd({
-      name: "Hac Turu 2025",
+      name: "Hac Turu 2026",
       description: "21 günlük Hac Turu. Din işleri kotalı, uzman görevli rehberliğinde eksiksiz hac farizası programı.",
       image: "https://sponsorhanimtravel.com/og-hac.jpg",
-      slug: "hac-turu-2025",
+      slug: "hac-turu-2026",
       price: 7500,
       currency: "USD",
       durationDays: 21,
@@ -191,7 +191,7 @@ export default function HacTuru2025() {
         <div className="absolute inset-0 z-0">
           <img
             src={pilgrimsImg}
-            alt="Hac Turu 2025"
+            alt="Hac Turu 2026"
             className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-foreground/60 backdrop-blur-[1px]" />
@@ -204,13 +204,13 @@ export default function HacTuru2025() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <Badge className="bg-primary/90 text-primary-foreground text-sm px-4 py-1 mb-6">
-              Hac 2025 — 21 Gün 20 Gece
+              Hac 2026 — 21 Gün 20 Gece
             </Badge>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight">
               Ömrün En Güzel{" "}
               <br className="hidden md:block" />
               <span className="text-primary italic">Yolculuğu:</span>{" "}
-              Hac 2025
+              Hac 2026
             </h1>
             <p className="text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-4 font-medium tracking-wide">
               21 Gün | 5★ Oteller & VIP Çadır | Uzman Din Görevlisi | Tam Kapsamlı Program
@@ -511,7 +511,7 @@ export default function HacTuru2025() {
         <div className="absolute inset-0 z-0">
           <img
             src={pilgrimsImg}
-            alt="Hac 2025"
+            alt="Hac 2026"
             className="w-full h-full object-cover object-center opacity-40"
           />
           <div className="absolute inset-0 bg-primary/90 mix-blend-multiply" />
@@ -527,7 +527,7 @@ export default function HacTuru2025() {
             </h2>
             <p className="text-white/90 text-lg mb-4 max-w-2xl mx-auto">
               Hac farizası, ertelenecek bir ibadet değildir.
-              2025 kontenjanları dolmadan yerinizi garantiye alın.
+              2026 kontenjanları dolmadan yerinizi garantiye alın.
             </p>
             <p className="text-white/70 text-sm mb-10 max-w-xl mx-auto">
               Uzman din görevlilerimiz eşliğinde, güvenli ve konforlu bir hac deneyimi

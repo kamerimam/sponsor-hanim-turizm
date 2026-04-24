@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail, Instagram } from "lucide-react";
 import logoImg from "@/assets/images/logo.png";
 
 export function Footer() {
@@ -17,6 +17,20 @@ export function Footer() {
               Kutsal topraklara en güvenilir köprünüz. 15 yılı aşkın tecrübemiz ve
               uzman rehberlerimizle hac, umre ve kültür turlarında yanınızdayız.
             </p>
+            <div className="flex items-center gap-3">
+              <span className="text-xs uppercase tracking-widest text-secondary-foreground/60">
+                Bizi Takip Edin
+              </span>
+              <a
+                href="https://www.instagram.com/sponsorhanimtravel"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Sponsor Hanım Turizm Instagram"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           <div>

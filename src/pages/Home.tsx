@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { useSeo } from "@/hooks/use-seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Shield, Users, Clock, ArrowRight } from "lucide-react";
+import { Star, Shield, Users, Clock, ArrowRight, HelpCircle } from "lucide-react";
 import heroBg from "@/assets/images/hero-bg.png";
 import pilgrimsImg from "@/assets/images/pilgrims.png";
 import premiumImg from "@/assets/images/premium.png";
@@ -24,9 +24,71 @@ const staggerContainer = {
 export default function Home() {
   useSeo({
     title: "Sponsor Hanım Turizm | Ankara Hac, Umre ve Kültür Turları",
-    description: "Ankara'nın güvenilir seyahat acentası Sponsor Hanım Turizm. 15 yılı aşkın tecrübesiyle hac, umre, Mısır ve Bali turları. Kutsal topraklara en güvenilir köprünüz.",
+    description: "Ankara'nın güvenilir seyahat acentası Sponsor Hanım Turizm. 15 yılı aşkın tecrübesiyle hac, umre, Mısır, Bali, Dubai ve GAP turları. Kutsal topraklara en güvenilir köprünüz.",
     path: "/",
-    keywords: "ankara umre turu, ankara hac turu, ankara seyahat acentası, umre turu 2026, hac turu 2026, mısır turu, bali turu, sponsor hanım turizm",
+    keywords: "ankara umre turu, ankara hac turu, ankara seyahat acentası, umre turu 2026, hac turu 2026, mısır turu, bali turu, dubai turu ankara, gap turu ankara, sponsor hanım turizm",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Sponsor Hanım Turizm hangi turları düzenliyor?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Sponsor Hanım Turizm Ankara merkezli bir seyahat acentasıdır. Hac, Umre (7 gün ve 14 gün seçenekli), Mısır (Hurghada–Kahire, Sharm El Şeyh–Kahire), Mısır+Umre kombine, Bali & Gili Adaları, Dubai ve GAP (Güneydoğu Anadolu) turları düzenlemektedir."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Umre turu için en uygun dönem nedir?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Umre için en uygun dönem Ekim–Nisan ayları arasıdır. Bu dönemde Mekke ve Medine'de iklim daha ılımandır. Ramazan ayında umrenin fazileti yüksektir ancak yoğunluk ve fiyatlar da artar."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Hac kontenjanı için ne zaman başvurmalıyım?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hac kontenjanları Diyanet İşleri Başkanlığı üzerinden dağıtılır. Kesin kayıt için en az 6 ay öncesinden başvuru yapmanızı öneriyoruz. 2026 hac kontenjan süreçleri için bizimle iletişime geçebilirsiniz."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Umre vizesi için ne gerekiyor?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Umre vizesi işlemleri Sponsor Hanım Turizm tarafından paket kapsamında takip edilir. Pasaportunuzun tur tarihi itibarıyla en az 6 ay geçerli olması gerekir."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Turlarda taksit imkânı var mı?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tüm turlarımızda 2 taksit ödeme imkanı sunulmaktadır. Ön ödeme ile kesin kayıt alınır, kalan tutar tur tarihinden 2 hafta önce tamamlanır."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Tur iptali durumunda iade politikası nedir?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Ön ödeme sonrası tur tarihinden 30 gün öncesine kadar tam iade yapılır. Daha kısa sürelerdeki iptallerde Paket Tur Sözleşmesi'nde belirtilen iade oranları uygulanır."
+          }
+        },
+        {
+          "@type": "Question",
+          name: "Ankara'dan mı kalkış yapılıyor?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Acentamız Ankara merkezlidir. Uçuşların büyük kısmı İstanbul Havalimanı veya Sabiha Gökçen'den yapılır; Ankara'dan havalimanına transfer seçeneği sunulur. GAP turu doğrudan Ankara'dan kalkışlıdır."
+          }
+        }
+      ]
+    },
   });
 
   return (
@@ -188,7 +250,7 @@ export default function Home() {
                 price: "4,500 USD"
               },
               {
-                title: "Hac 2025 Programı",
+                title: "Hac 2026 Programı",
                 desc: "Ömrün en güzel yolculuğu",
                 price: "7,500 USD"
               },
@@ -268,6 +330,74 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <div className="text-center mb-12">
+            <span className="text-primary font-medium tracking-widest uppercase text-sm mb-2 block">
+              Sık Sorulanlar
+            </span>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-4">
+              Aklınızdaki <span className="text-primary italic">Sorulara</span> Cevaplar
+            </h2>
+            <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full mt-6" />
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: "Sponsor Hanım Turizm hangi turları düzenliyor?",
+                a: "Ankara merkezli acentamız Hac, Umre (7 gün ve 14 gün seçenekli), Mısır (Hurghada–Kahire ve Sharm El Şeyh–Kahire), Mısır+Umre kombine, Bali & Gili Adaları, Dubai ve GAP (Güneydoğu Anadolu) turları düzenler."
+              },
+              {
+                q: "Umre turu için en uygun dönem nedir?",
+                a: "Ekim–Nisan ayları iklim olarak en uygun dönemdir. Ramazan ayında umrenin fazileti yüksektir ancak yoğunluk ve fiyatlar artar."
+              },
+              {
+                q: "Hac kontenjanı için ne zaman başvurmalıyım?",
+                a: "Kesin kayıt için en az 6 ay öncesinden başvuru yapmanızı öneriyoruz. 2026 hac süreci için bizimle iletişime geçebilirsiniz."
+              },
+              {
+                q: "Umre vizesi için ne gerekiyor?",
+                a: "Vize işlemleri tarafımızca takip edilir. Pasaportunuzun tur tarihi itibarıyla en az 6 ay geçerli olması yeterlidir."
+              },
+              {
+                q: "Turlarda taksit imkânı var mı?",
+                a: "Tüm turlarımızda 2 taksit ödeme imkanı vardır. Ön ödeme ile kesin kayıt alınır, kalan tutar tur tarihinden 2 hafta önce tamamlanır."
+              },
+              {
+                q: "Tur iptali durumunda iade politikası nedir?",
+                a: "Ön ödeme sonrası tur tarihinden 30 gün öncesine kadar tam iade yapılır. Daha kısa sürelerdeki iptallerde Paket Tur Sözleşmesi'nde belirtilen iade oranları uygulanır."
+              },
+              {
+                q: "Ankara'dan mı kalkış yapılıyor?",
+                a: "Acentamız Ankara merkezlidir. Uçuşların büyük kısmı İstanbul Havalimanı veya Sabiha Gökçen'den yapılır; Ankara'dan havalimanına transfer seçeneği sunulur. GAP turu doğrudan Ankara'dan kalkışlıdır."
+              }
+            ].map((faq, i) => (
+              <motion.details
+                key={i}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="group rounded-xl border border-border bg-card p-5 md:p-6 hover:border-primary/40 transition-colors"
+              >
+                <summary className="flex items-center justify-between cursor-pointer list-none gap-4">
+                  <span className="flex items-center gap-3 font-serif font-semibold text-base md:text-lg text-foreground">
+                    <HelpCircle className="w-5 h-5 text-primary shrink-0" />
+                    {faq.q}
+                  </span>
+                  <ArrowRight className="w-5 h-5 text-primary shrink-0 transition-transform group-open:rotate-90" />
+                </summary>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed mt-4 pl-8">
+                  {faq.a}
+                </p>
+              </motion.details>
             ))}
           </div>
         </div>
